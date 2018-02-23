@@ -1,0 +1,14 @@
+{
+    "name": "afshinpersian/bonsai",
+    "description": "bonsai is a lightweight php framework from slim3",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "afshin",
+            "email": "afshin@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
