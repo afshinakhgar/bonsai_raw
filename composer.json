@@ -6,9 +6,13 @@
     "authors": [
         {
             "name": "afshin",
-            "email": "afshin@gmail.com"
+            "email": "afshin.akhgar@gmail.com"
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "slim/slim": "^3.0",
+        "php-di/slim-bridge": "dev-master",
+        "vlucas/phpdotenv": "^2.5@dev"
+    }
 }
