@@ -6,9 +6,19 @@
     "authors": [
         {
             "name": "afshin",
-            "email": "afshin@gmail.com"
+            "email": "afshin.akhgar@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "stable",
+    "require": {
+        "slim/slim": "^3.0",
+        "symfony/var-dumper": "^4.0",
+        "monolog/monolog": "^1.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/app/",
+            "Kernel\\": "kernel/"
+        }
+    }
 }
