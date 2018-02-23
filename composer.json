@@ -14,5 +14,11 @@
         "slim/slim": "^3.0",
         "php-di/slim-bridge": "dev-master",
         "vlucas/phpdotenv": "^2.5@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/app/",
+            "Kernel\\": "kernel/"
+        }
     }
 }
