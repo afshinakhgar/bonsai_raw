@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+include 'bootstrap/app.php';
+
+
+use Console\HashCommand;
+use Symfony\Component\Console\Application;
+
+
+$application = new Application();
+$application->add(new HashCommand());
+$application->run();
