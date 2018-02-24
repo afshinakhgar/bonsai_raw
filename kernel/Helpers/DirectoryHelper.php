@@ -13,6 +13,9 @@ class DirectoryHelper
 {
     public function scan($folder)
     {
+        if(!is_dir($folder)){
+            return false;
+        }
         $config_dir = scandir($folder);
         $ex_config_folders = array('..', '.');
         $filesInConfig =  array_diff($config_dir,$ex_config_folders);

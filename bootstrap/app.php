@@ -7,18 +7,24 @@ require __APP_ROOT__ . 'vendor/autoload.php';
 $configFilesObj = new \Kernel\Helpers\ConfigHelper();
 $config['settings'] = $configFilesObj->loader(__APP_ROOT__.'/config/');
 
-
-
 $app = new \Kernel\App($config);
+
+if($config['settings']['app']['debug']){
+    error_reporting(-1);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+}
 
 require __APP_ROOT__ . 'bootstrap/dependencies.php';
 
+$route = new \Kernel\Router($app);
+$route->partialRouterLoader(__APP_ROOT__.'src/app/Routes/');
 
-$app->get('/hello/{name}', function (\Slim\Http\Request $request, \Slim\Http\Response $response, array $args) {
-    $name = $args['name'];
+if(php_sapi_name() != 'cli') {
+    SlimFacades\Facade::setFacadeApplication($app);
+    require  __APP_ROOT__.'bootstrap/middlewares.php';
 
-    $response->getBody()->write("Hello, $name");
-    return $response;
-});
+    $app->run();
+}
 
-$app->run();
+
