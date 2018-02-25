@@ -9,7 +9,12 @@
 namespace Test\App;
 
 
-class HashTest
+use Kernel\Abstracts\AbstractTest;
+
+class HashTest extends AbstractTest
 {
 
+    public function testSample() {
+        $this->assertTrue(true);
+    }
 }
