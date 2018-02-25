@@ -15,7 +15,9 @@
         "symfony/var-dumper": "^4.0",
         "monolog/monolog": "^1.23",
         "zhangshize/slim-facades": "^1.1",
-        "runcmf/runtracy": "^0.2.3"
+        "runcmf/runtracy": "^0.2.3",
+        "vlucas/phpdotenv": "^2.4"
+
     },
     "autoload": {
         "psr-4": {
