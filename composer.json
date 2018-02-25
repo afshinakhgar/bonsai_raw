@@ -22,7 +22,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/app/",
-            "Console\\": "src/bin/console",
+            "Console\\": "src/console",
             "Test\\": "src/tests",
             "Kernel\\": "kernel/"
         }
