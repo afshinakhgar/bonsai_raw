@@ -32,6 +32,7 @@ abstract class AbstractRouter
     {
         $direcoryHelperObj = new DirectoryHelper();
         $route = $this;
+        $app = $this->app;
         $files = $direcoryHelperObj->scan($filesAddressFolder);
         /** Route Partial Loadup =================================================== */
         foreach ($files as $partial) {

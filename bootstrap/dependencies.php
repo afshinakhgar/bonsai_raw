@@ -8,3 +8,10 @@ $container['logger'] = function($container) {
     $logger->pushHandler($file_handler);
     return $logger;
 };
+
+
+
+
+$container['generalErrorHandler'] = function ($container) {
+    return new \Kernel\Handlers\GeneralErrorHandler($container);
+};
