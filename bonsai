@@ -2,7 +2,6 @@
 <?php
 include 'bootstrap/app.php';
 
-
 use Console\HashCommand;
 use Console\RunTestCommand;
 use Symfony\Component\Console\Application;
