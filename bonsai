@@ -13,4 +13,5 @@ $application->add(new RunTestCommand());
 $application->add(new \Console\MakeControllerCommand());
 $application->add(new \Console\MakeMiddleWareCommand());
 $application->add(new \Console\MakeModelCommand());
+$application->add(new \Console\RoutesListCommand('route list ' , $app));
 $application->run();
