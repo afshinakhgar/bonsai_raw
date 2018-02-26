@@ -10,6 +10,7 @@ namespace App;
 
 
 use Kernel\Abstracts\AbstractController;
+use Psr\Container\ContainerInterface;
 
 class Controller extends AbstractController
 {

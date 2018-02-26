@@ -26,6 +26,6 @@ class DemoController extends Controller
      */
     public function index(Request $request , Response $response , array $args)
     {
-        var_dump(1);
+        var_dump(2);
     }
 }

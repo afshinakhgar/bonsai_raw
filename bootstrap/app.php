@@ -20,12 +20,12 @@ if($config['settings']['app']['debug']){
 require __APP_ROOT__ . 'bootstrap/dependencies.php';
 
 $route = new \Kernel\Router($app);
+
 $route->partialRouterLoader(__APP_ROOT__.'src/app/Routes/');
 
 if(php_sapi_name() != 'cli') {
     SlimFacades\Facade::setFacadeApplication($app);
     require  __APP_ROOT__.'bootstrap/middlewares.php';
-
     $app->run();
 }
 
