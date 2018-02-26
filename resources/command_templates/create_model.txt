@@ -1,0 +1,11 @@
+<?php
+namespace !namespace;
+use Kernel\Abstracts\AbstractModel;
+
+/**
+*
+*/
+class !name extends AbstractModel
+{
+
+}
