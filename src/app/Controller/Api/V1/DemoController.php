@@ -9,7 +9,8 @@
 namespace App\Controller\Api\V1;
 
 
-use App\Controller;
+use App\Controller\_Controller;
+use App\Model\Demo;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -17,7 +18,7 @@ use Slim\Http\Response;
  * Class DemoController
  * @package App\Controller\Api\V1
  */
-class DemoController extends Controller
+class DemoController extends _Controller
 {
     /**
      * @param Request $request
@@ -26,6 +27,7 @@ class DemoController extends Controller
      */
     public function index(Request $request , Response $response , array $args)
     {
-        var_dump(2);
+        $data = Demo::find(1);
+        dd($data->name);
     }
 }

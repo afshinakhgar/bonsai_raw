@@ -1,6 +1,6 @@
 <?php
 
-function env($filePath ,$key, $default = null)
+function envY($filePath ,$key, $default = null)
 {
     $helper =  new \Kernel\Helpers\EnvHelper();
 

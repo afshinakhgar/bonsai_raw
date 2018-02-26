@@ -10,7 +10,7 @@ namespace Kernel\Abstracts;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Eloquent\Model;
 
-class AbstractEloquentModel extends Model
+class AbstractModel extends Model
 {
 
 }

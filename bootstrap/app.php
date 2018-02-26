@@ -1,10 +1,11 @@
 <?php
-define('__APP_ROOT__', __DIR__ . '/../') ;
+ini_set('display_errors', 1);
 
+define('__APP_ROOT__', __DIR__ . '/../') ;
 require __APP_ROOT__ . 'vendor/autoload.php';
 
+    require __APP_ROOT__ . 'kernel/Helpers/Functions/general_helpers.php';
 // start config files reader
-require __APP_ROOT__ . 'kernel/Helpers/Functions/general_helpers.php';
 
 $configFilesObj = new \Kernel\Helpers\ConfigHelper();
 $config['settings'] = $configFilesObj->loader(__APP_ROOT__.'/config/');

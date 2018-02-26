@@ -6,8 +6,7 @@
  * Time: 12:04 PM
  */
 
-namespace App;
-
+namespace App\Controller;
 
 use Kernel\Abstracts\AbstractController;
 use Psr\Container\ContainerInterface;

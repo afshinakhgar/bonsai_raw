@@ -16,7 +16,8 @@
         "monolog/monolog": "^1.23",
         "zhangshize/slim-facades": "^1.1",
         "runcmf/runtracy": "^0.2.3",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "illuminate/database": "~5.1"
 
     },
     "autoload": {
