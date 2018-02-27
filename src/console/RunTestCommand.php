@@ -68,7 +68,6 @@ class RunTestCommand extends AbstractConsole
     public function getPath($path)
     {
         $dir = scandir(__APP_ROOT__.'src/tests/'.ucwords($path));
-        var_dump(__APP_ROOT__.'src/tests/'.$path);exit;
         $ex_folders = array('..', '.');
 
         return array_diff($dir,$ex_folders);
