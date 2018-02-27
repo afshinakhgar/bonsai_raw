@@ -9,10 +9,9 @@
             "email": "afshin.akhgar@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
+        "php": ">= 7.1.0",
         "slim/slim": "^3.0",
-        "symfony/var-dumper": "^4.0",
         "monolog/monolog": "^1.23",
         "zhangshize/slim-facades": "^1.1",
         "runcmf/runtracy": "^0.2.3",
@@ -20,8 +19,8 @@
         "illuminate/database": "~5.1",
         "robmorgan/phinx": "^0.9.2",
         "slim/csrf": "^0.8.2",
-        "slim/flash": "^0.4.0"
-
+        "slim/flash": "^0.4.0",
+        "buchin/slim-blade-view": "^0.1.1"
     },
     "autoload": {
         "psr-4": {
