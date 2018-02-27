@@ -17,5 +17,6 @@ $application->add(new \Console\RoutesListCommand('route list ' , $app));
 
 
 $application->add(new \Console\MakeMigrationCommand());
+$application->add(new \Console\MakeSeederCommand());
 
 $application->run();
