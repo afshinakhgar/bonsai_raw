@@ -34,5 +34,11 @@
         "phpunit/phpunit": "5.4.*",
         "symfony/process": "2.*",
         "symfony/console": "^3.3"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "serve": "php -S 0.0.0.0:8080 -t public"
     }
 }
