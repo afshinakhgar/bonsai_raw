@@ -32,7 +32,10 @@ class OptimizeCommand extends AbstractConsole
         if (!$process->isSuccessful()) {
             throw new RuntimeException($process->getErrorOutput());
         }
-        print $process->getOutput('Optimized Done');
+        print $process->getOutput();
+
+        $output->writeln(PHP_EOL.'Optimized ');
+
     }
 
 }

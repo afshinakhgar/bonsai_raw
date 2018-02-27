@@ -34,7 +34,7 @@ class MigrateCommand extends AbstractConsole
         if (!$process->isSuccessful()) {
             throw new RuntimeException($process->getErrorOutput());
         }
-        print $process->getOutput('Migrate Done');
+        print $process->getOutput();
     }
 
 }
