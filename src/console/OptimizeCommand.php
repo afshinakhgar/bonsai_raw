@@ -14,25 +14,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 
-class SeedCommand extends AbstractConsole
+class OptimizeCommand extends AbstractConsole
 {
     protected function configure()
     {
         parent::configure();
 
         $this
-            ->setName('seed')
-            ->setDescription('Seed Execution')
+            ->setName('optimize')
+            ->setDescription('Optimizer Execution')
         ;
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $process = new Process('./vendor/bin/phinx seed:run');
+        $process = new Process('composer dump-autoload -o');
         $process->run();
         if (!$process->isSuccessful()) {
             throw new RuntimeException($process->getErrorOutput());
         }
-        print $process->getOutput('Seed Done');
+        print $process->getOutput('Optimized Done');
     }
 
 }

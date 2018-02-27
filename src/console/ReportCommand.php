@@ -14,25 +14,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 
-class SeedCommand extends AbstractConsole
+class ReportCommand extends AbstractConsole
 {
     protected function configure()
     {
         parent::configure();
 
         $this
-            ->setName('seed')
-            ->setDescription('Seed Execution')
+            ->setName('report')
+            ->setDescription('Report Execution')
         ;
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $process = new Process('./vendor/bin/phinx seed:run');
+        $process = new Process('php ./vendor/bin/phpmetrics --report-html=storage/report .');
         $process->run();
         if (!$process->isSuccessful()) {
             throw new RuntimeException($process->getErrorOutput());
         }
-        print $process->getOutput('Seed Done');
+        print $process->getOutput('report creating  Done');
     }
 
 }
