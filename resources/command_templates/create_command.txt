@@ -6,6 +6,7 @@ use SebastianBergmann\GlobalState\RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Console\Input\InputArgument;
 
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\Question;
@@ -15,7 +16,7 @@ use Symfony\Component\Console\Question\Question;
  * Class ReportCommand
  * @package Console
  */
-class !command_name extends AbstractConsole
+class !command_nameCommand extends AbstractConsole
 {
     protected function configure()
     {
@@ -24,7 +25,11 @@ class !command_name extends AbstractConsole
         $this
             ->setName('!command_name')
             ->setDescription('!command_name')
-        ;
+            ->addArgument(
+                'name',
+                InputArgument::REQUIRED,
+                'Name of the Class to Create'
+            );
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
