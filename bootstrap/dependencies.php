@@ -53,6 +53,7 @@ $container['translator'] = function ($container) {
     $translator = new \Illuminate\Translation\Translator($loader, $local);
     return $translator;
 };
+
 $container['flash'] = function () {
     return new \Slim\Flash\Messages();
 };
