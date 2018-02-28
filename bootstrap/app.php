@@ -22,7 +22,7 @@ require __APP_ROOT__ . 'bootstrap/dependencies.php';
 
 $route = new \Kernel\Router($app);
 
-$route->partialRouterLoader(__APP_ROOT__.'src/app/Routes/');
+$route->partialRouterLoader(__APP_ROOT__.'app/Routes/');
 
 if(php_sapi_name() != 'cli') {
     SlimFacades\Facade::setFacadeApplication($app);
