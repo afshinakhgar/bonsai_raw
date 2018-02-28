@@ -9,21 +9,21 @@
             "email": "afshin.akhgar@gmail.com"
         }
     ],
-    "prefer-stable": true,
     "require": {
         "php": ">= 7.1.0",
         "slim/slim": "^3.0",
         "monolog/monolog": "^1.23",
         "zhangshize/slim-facades": "^1.1",
         "vlucas/phpdotenv": "^2.4",
-        "illuminate/database": "~5.6",
         "robmorgan/phinx": "^0.9.2",
         "slim/csrf": "^0.8.2",
         "slim/flash": "^0.4.0",
         "buchin/slim-blade-view":"dev-master",
         "zeuxisoo/slim-whoops": "0.6.*",
-        "davidepastore/slim-validation": "^0.5.0"
-
+        "davidepastore/slim-validation": "^0.5.0",
+        "illuminate/database": "~5.5",
+        "illuminate/pagination":"~5.5.0",
+        "illuminate/translation": "^5.5"
     },
     "autoload": {
         "psr-4": {

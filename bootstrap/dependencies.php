@@ -54,7 +54,11 @@ $container['flash'] = function () {
 
 
 
-
+$whoopsGuard = new \Zeuxisoo\Whoops\Provider\Slim\WhoopsGuard();
+$whoopsGuard->setApp($app);
+$whoopsGuard->setRequest($container['request']);
+$whoopsGuard->setHandlers([]);
+$whoopsGuard->install();
 
 // AUTOMATIC LOADER CLASSES
 

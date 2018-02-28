@@ -1,10 +1,9 @@
 <?php
-namespace App\Middleware;
+namespace App\MiddleWare;
 
-use Core\Interfaces\_Middleware;
-use Illuminate\Database\Capsule\Manager as DB;
+use Kernel\Abstracts\AbstractMiddleWare;
 
-class RouterMiddleware extends _Middleware {
+class RouterMiddleWare extends AbstractMiddleWare {
 
     public function __invoke($request, $response, $next) {
 

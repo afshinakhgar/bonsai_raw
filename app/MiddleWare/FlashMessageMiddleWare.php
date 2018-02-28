@@ -6,12 +6,12 @@
  * Time: 11:49 AM
  */
 
-namespace App\Middleware;
+namespace App\MiddleWare;
 
 
-use Core\Interfaces\_Middleware;
+use Kernel\Abstracts\AbstractMiddleWare;
 
-class FlashMessageMiddleWare extends _Middleware
+class FlashMessageMiddleWare extends AbstractMiddleWare
 {
 
 

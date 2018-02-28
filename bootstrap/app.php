@@ -1,6 +1,5 @@
 <?php
 ini_set('display_errors', 1);
-
 define('__APP_ROOT__', __DIR__ . '/../') ;
 require __APP_ROOT__ . 'vendor/autoload.php';
 
