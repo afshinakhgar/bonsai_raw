@@ -27,6 +27,6 @@ class AfshinDemoTable extends AbstractMigration
      */
     public function down()
     {
-        Capsule::schema()->drop('demo');
+        Capsule::schema()->drop('users');
     }
 }
