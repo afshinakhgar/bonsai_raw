@@ -47,6 +47,13 @@ $container['generalErrorHandler'] = function ($container) {
 };
 
 
+$container['translator'] = function ($container) {
+    // Register the Dutch translator (set to "en" for English)
+    $local = $container->get('settings')['local'] ?? 'en';
+    $loader = new \Illuminate\Translation\FileLoader(new \Illuminate\Filesystem\Filesystem(), $container->get('settings')['translations_path']);
+    $translator = new Translator($loader, $local);
+    return $translator;
+};
 
 $container['flash'] = function () {
     return new \Slim\Flash\Messages();

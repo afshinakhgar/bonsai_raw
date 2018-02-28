@@ -6,6 +6,7 @@ return  [
     'app' => [
         'log_timer' => true,
         'debug'=>true,
+        'translation_path'=>'./translation/',
         'logger' => [
             'name' => 'cafesaba',
             'level' => Monolog\Logger::DEBUG,
