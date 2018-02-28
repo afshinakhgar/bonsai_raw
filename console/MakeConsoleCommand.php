@@ -1,41 +1,35 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: afshin
+ * Date: 2/25/18
+ * Time: 2:33 PM
+ */
+
 namespace Console;
+
 
 use Kernel\Abstracts\AbstractConsole;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use Symfony\Component\Console\Question\Question;
 
-
-/**
- * Class ReportCommand
- * @package Console
- */
-class MakeDataAccessCommand extends AbstractConsole
+class MakeConsoleCommand extends AbstractConsole
 {
-    protected function configure()
-    {
-        parent::configure();
-
-        $this
-            ->setName('make:da')
-            ->setDescription('MakeDataAccess')
-            ->addArgument(
-                'name',
-                InputArgument::REQUIRED,
-                'Name of the Class to Create'
-            )
-        ;
+    protected function configure(){
+        $this->setName("make:console")
+            ->setDescription("Create new Command")
+            ->addArgument('name', InputArgument::REQUIRED, 'Whats your Command\'s name)');
     }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
 
-        $directory = "src/app/DataAccess/";
-        $file = file_get_contents("resources/command_templates/create_dataaccess.txt");
-        $file = str_replace("!name", $name.'DataAccess', $file);
+        $directory = "console/";
+        $file = file_get_contents("resources/command_templates/create_command.txt");
+        $file = str_replace("!command_name", $name, $file);
         if (is_dir($directory) && !is_writable($directory)) {
             $output->writeln('The "%s" directory is not writable');
             return;
@@ -55,12 +49,12 @@ class MakeDataAccessCommand extends AbstractConsole
                 return;
             }
         }
-        if (!file_exists($directory.$name."DataAccess.php")) {
-            $fh = fopen($directory . $name . "DataAccess.php", "w");
+        if (!file_exists($directory.$name."Command.php")) {
+            $fh = fopen($directory . $name . "Command.php", "w");
             fwrite($fh, $file);
             fclose($fh);
-            $className = $name . ".php";
-            $output->writeln("Created $className in App\\DataAccess");
+            $className = $name . "Command.php";
+            $output->writeln("Created $className in Command");
         } else {
             $output->writeln("Class already Exists!");
         }

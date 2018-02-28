@@ -33,7 +33,7 @@ class MakeModelCommand extends AbstractConsole
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
-        $directory = "src/app/Model/";
+        $directory = "app/Model/";
         $file = file_get_contents("resources/command_templates/create_model.txt");
         $hasNamespace = false;
 

@@ -9,6 +9,7 @@
             "email": "afshin.akhgar@gmail.com"
         }
     ],
+    "prefer-stable": true,
     "require": {
         "php": ">= 7.1.0",
         "slim/slim": "^3.0",
@@ -24,9 +25,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/app/",
-            "Console\\": "src/console",
-            "Test\\": "src/tests",
+            "App\\": "app/",
+            "Console\\": "console",
+            "Test\\": "tests",
             "Kernel\\": "kernel/"
         }
     },

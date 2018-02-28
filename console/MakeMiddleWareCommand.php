@@ -33,7 +33,7 @@ class MakeMiddleWareCommand extends AbstractConsole
     {
         $name = $input->getArgument('name');
 
-        $directory = "src/app/MiddleWare/";
+        $directory = "app/MiddleWare/";
         $file = file_get_contents("resources/command_templates/create_middleWare.txt");
         $file = str_replace("!name", $name, $file);
         if (is_dir($directory) && !is_writable($directory)) {

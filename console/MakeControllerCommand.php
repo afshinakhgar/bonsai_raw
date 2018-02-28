@@ -25,7 +25,7 @@ class MakeControllerCommand extends AbstractConsole
 
     protected function execute(InputInterface $input, OutputInterface $output){
         $name = $input->getArgument('name');
-        $directory = "src/app/Controller/";
+        $directory = "app/Controller/";
         $file = file_get_contents("resources/command_templates/create_controller.txt");
         $hasNamespace = false;
 

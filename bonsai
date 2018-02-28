@@ -9,7 +9,7 @@ include 'bootstrap/app.php';
 $container = $app->getContainer();
 
 $directory = New \Kernel\Helpers\DirectoryHelper();
-$command = $directory->scan('src/console');
+$command = $directory->scan('console');
 
 $exceptions = [
     'Route List '=>'Console\RoutesListCommand'

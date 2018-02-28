@@ -62,7 +62,7 @@ $container['flash'] = function () {
 
 /*Dynamic containers in services*/
 $Directory = new \Kernel\Helpers\DirectoryHelper();
-$filesInServices = $Directory->scan(__APP_ROOT__.'/src/app/Services/');
+$filesInServices = $Directory->scan(__APP_ROOT__.'/app/Services/');
 if($filesInServices){
     foreach($filesInServices as $service){
         $content = preg_replace('/.php/','',$service);
@@ -76,10 +76,10 @@ if($filesInServices){
 
 
 // data access container
-$array = $Directory->scan(__APP_ROOT__.'/src/app/DataAccess/');
+$array = $Directory->scan(__APP_ROOT__.'/app/DataAccess/');
 foreach($array as $key=>$item){
     if(is_dir($item)){
-        $classDataAccessFolder[$item] = $Directory->scan(__APP_ROOT__.'/src/app/DataAccess/'.$item);
+        $classDataAccessFolder[$item] = $Directory->scan(__APP_ROOT__.'/app/DataAccess/'.$item);
     }else{
         $classDataAccessFolder['DataAccess'] = $item;
 
