@@ -15,21 +15,18 @@ use Slim\Http\Response;
 
 abstract class AbstractController
 {
-    /**
-     * Slim Container
-     *
-     * @var ContainerInterface
-     */
     protected $container;
-    /**
-     * Controller constructor
-     *
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
+
+    function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        unset($container);
+    }
+
+    public function __get($property)
+    {
+        if ($this->container->{$property}) {
+            return $this->container->{$property};
+        }
     }
     /**
      * Get Slim Container
@@ -69,9 +66,9 @@ abstract class AbstractController
         return $this->container->response;
     }
     /**
-     * Get Template Engine
+     * Get Twig Engine
      *
-     * @return Template
+     * @return Blade
      */
     protected function getView()
     {
@@ -82,7 +79,7 @@ abstract class AbstractController
      *
      * @param string $template
      * @param array $data
-     * @return string
+     * @return ResponseInterface
      */
     protected function render($template, $data = [])
     {

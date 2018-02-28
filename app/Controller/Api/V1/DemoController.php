@@ -27,7 +27,10 @@ class DemoController extends _Controller
      */
     public function index(Request $request , Response $response , array $args)
     {
-        $data = Demo::find(1);
-        dd($data->name);
+//        $data = Demo::find(1);
+//        dd($data->name);
+
+         dd($this->translator->trans('asd'));
+
     }
 }

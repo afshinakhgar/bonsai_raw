@@ -46,15 +46,13 @@ $container['generalErrorHandler'] = function ($container) {
     return new \Kernel\Handlers\ErrorHandler($container['logger']);
 };
 
-
 $container['translator'] = function ($container) {
     // Register the Dutch translator (set to "en" for English)
     $local = $container->get('settings')['local'] ?? 'en';
-    $loader = new \Illuminate\Translation\FileLoader(new \Illuminate\Filesystem\Filesystem(), $container->get('settings')['translations_path']);
-    $translator = new Translator($loader, $local);
+    $loader = new \Illuminate\Translation\FileLoader(new \Illuminate\Filesystem\Filesystem(), $container->get('settings')['app']['translation_path']);
+    $translator = new \Illuminate\Translation\Translator($loader, $local);
     return $translator;
 };
-
 $container['flash'] = function () {
     return new \Slim\Flash\Messages();
 };
