@@ -44,7 +44,7 @@ class RunTestCommand extends AbstractConsole
         }
 
         foreach($dir as $testFile){
-            $process = new Process('./vendor/bin/phpunit '. __APP_ROOT__.'src/tests/'.ucwords($path).'/'.$testFile);
+            $process = new Process('./vendor/bin/phpunit '. __APP_ROOT__.'tests/'.ucwords($path).'/'.$testFile);
             $process->setTimeout(3600);
 
 
@@ -67,7 +67,7 @@ class RunTestCommand extends AbstractConsole
 
     public function getPath($path)
     {
-        $dir = scandir(__APP_ROOT__.'src/tests/'.ucwords($path));
+        $dir = scandir(__APP_ROOT__.'tests/'.ucwords($path));
         $ex_folders = array('..', '.');
 
         return array_diff($dir,$ex_folders);
