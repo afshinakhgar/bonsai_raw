@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad7c215071108730da303524c503781c",
+    "content-hash": "22ecb517a2b12303f4b6bfd8ee39e331",
     "packages": [
         {
             "name": "buchin/slim-blade-view",
-            "version": "0.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buchin/slim-blade-view.git",
-                "reference": "9cdea69285acbf712463b38a9bb0b5ce23c4c98c"
+                "reference": "02d9d2ee467baa0a601efdf7a8292b87963931a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buchin/slim-blade-view/zipball/9cdea69285acbf712463b38a9bb0b5ce23c4c98c",
-                "reference": "9cdea69285acbf712463b38a9bb0b5ce23c4c98c",
+                "url": "https://api.github.com/repos/buchin/slim-blade-view/zipball/02d9d2ee467baa0a601efdf7a8292b87963931a7",
+                "reference": "02d9d2ee467baa0a601efdf7a8292b87963931a7",
                 "shasum": ""
             },
             "require": {
@@ -41,11 +41,15 @@
             ],
             "authors": [
                 {
+                    "name": "Mochammad Masbuchin",
+                    "email": "buchin@dropsugar.com"
+                },
+                {
                     "name": "Hiroaki Matsuura",
                     "email": "hiropeke.jp@gmail.com"
                 }
             ],
-            "description": "Slim Framework 3 view helper built on the Blade component",
+            "description": "Blade for Slim Framework 3 with Custom Directive",
             "keywords": [
                 "blade",
                 "framework",
@@ -54,7 +58,7 @@
                 "template",
                 "view"
             ],
-            "time": "2016-03-11T02:32:00+00:00"
+            "time": "2017-01-11 01:36:23"
         },
         {
             "name": "container-interop/container-interop",
@@ -86,6 +90,56 @@
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
             "time": "2017-02-14T19:40:03+00:00"
+        },
+        {
+            "name": "davidepastore/slim-validation",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DavidePastore/Slim-Validation.git",
+                "reference": "161905b9d942a848e170a15d58dfc17826a08cc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DavidePastore/Slim-Validation/zipball/161905b9d942a848e170a15d58dfc17826a08cc6",
+                "reference": "161905b9d942a848e170a15d58dfc17826a08cc6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "psr/http-message": "^1.0",
+                "respect/validation": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0",
+                "scrutinizer/ocular": "~1.1",
+                "slim/slim": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DavidePastore\\Slim\\Validation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Davide Pastore",
+                    "email": "pasdavide@gmail.com"
+                }
+            ],
+            "description": "A slim middleware for validation based on Respect/Validation",
+            "keywords": [
+                "framework",
+                "middleware",
+                "slim",
+                "validation",
+                "validator"
+            ],
+            "time": "2017-03-21T13:31:00+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -153,6 +207,67 @@
                 "string"
             ],
             "time": "2018-01-09T20:05:19+00:00"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "2.1.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "c6081b8838686aa04f1e83ba7e91f78b7b2a23e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/c6081b8838686aa04f1e83ba7e91f78b7b2a23e6",
+                "reference": "c6081b8838686aa04f1e83ba7e91f78b7b2a23e6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9 || ^7.0",
+                "psr/log": "^1.0.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "^4.8.35 || ^5.7",
+                "symfony/var-dumper": "^2.6 || ^3.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://filp.github.io/whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "throwable",
+                "whoops"
+            ],
+            "time": "2017-11-23T18:22:44+00:00"
         },
         {
             "name": "illuminate/container",
@@ -1012,6 +1127,69 @@
             "time": "2017-01-02T13:31:39+00:00"
         },
         {
+            "name": "respect/validation",
+            "version": "1.1.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Respect/Validation.git",
+                "reference": "ee9e69776a8e875ac1b5b00d8cf2d2c801c42181"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Respect/Validation/zipball/ee9e69776a8e875ac1b5b00d8cf2d2c801c42181",
+                "reference": "ee9e69776a8e875ac1b5b00d8cf2d2c801c42181",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "symfony/polyfill-mbstring": "^1.2"
+            },
+            "require-dev": {
+                "egulias/email-validator": "~1.2",
+                "mikey179/vfsstream": "^1.5",
+                "phpunit/phpunit": "~4.0",
+                "symfony/validator": "~2.6.9",
+                "zendframework/zend-validator": "~2.3"
+            },
+            "suggest": {
+                "egulias/email-validator": "Strict (RFC compliant) email validation",
+                "ext-bcmath": "Arbitrary Precision Mathematics",
+                "ext-mbstring": "Multibyte String Functions",
+                "fabpot/php-cs-fixer": "Fix PSR2 and other coding style issues",
+                "symfony/validator": "Use Symfony validator through Respect\\Validation",
+                "zendframework/zend-validator": "Use Zend Framework validator through Respect\\Validation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Respect\\Validation\\": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD Style"
+            ],
+            "authors": [
+                {
+                    "name": "Respect/Validation Contributors",
+                    "homepage": "https://github.com/Respect/Validation/graphs/contributors"
+                }
+            ],
+            "description": "The most awesome validation engine ever created for PHP",
+            "homepage": "http://respect.github.io/Validation/",
+            "keywords": [
+                "respect",
+                "validation",
+                "validator"
+            ],
+            "time": "2018-01-02T21:47:22+00:00"
+        },
+        {
             "name": "robmorgan/phinx",
             "version": "0.9.2",
             "source": {
@@ -1081,72 +1259,6 @@
                 "phinx"
             ],
             "time": "2017-12-23T06:48:51+00:00"
-        },
-        {
-            "name": "runcmf/runtracy",
-            "version": "0.2.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/runcmf/runtracy.git",
-                "reference": "99c87de1f0de9bab6ae60efcb37d885ce02e2c29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/runcmf/runtracy/zipball/99c87de1f0de9bab6ae60efcb37d885ce02e2c29",
-                "reference": "99c87de1f0de9bab6ae60efcb37d885ce02e2c29",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.0",
-                "slim/slim": "~3.7",
-                "tracy/tracy": "~2.4"
-            },
-            "require-dev": {
-                "doctrine/orm": "^2.5",
-                "illuminate/database": "^5.3",
-                "j4mie/idiorm": "^1.5",
-                "phpunit/phpunit": "^5.7",
-                "satooshi/php-coveralls": "1.*",
-                "slim/twig-view": "~2.1",
-                "squizlabs/php_codesniffer": "^2.5",
-                "twig/twig": "~1.24"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "RunTracy\\": "src/RunTracy"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Vladimir",
-                    "email": "1f7.wizard@gmail.com",
-                    "homepage": "http://runcmf.ru"
-                }
-            ],
-            "description": "Slim Framework Debugger",
-            "keywords": [
-                "Doctrine DBAL",
-                "Eloquent ORM",
-                "Idorm",
-                "PTY Terminal",
-                "debug bar",
-                "debugbar",
-                "debugger",
-                "illuminate database",
-                "profiler",
-                "runtracy",
-                "slim 3",
-                "slim framework",
-                "slim3",
-                "tracy",
-                "twig"
-            ],
-            "time": "2017-05-24T11:36:38+00:00"
         },
         {
             "name": "slim/csrf",
@@ -1779,71 +1891,6 @@
             "time": "2018-01-20T15:04:53+00:00"
         },
         {
-            "name": "tracy/tracy",
-            "version": "v2.4.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nette/tracy.git",
-                "reference": "4182ce7b92f67002509b7fa2fc34bd84deea0b24"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/4182ce7b92f67002509b7fa2fc34bd84deea0b24",
-                "reference": "4182ce7b92f67002509b7fa2fc34bd84deea0b24",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-session": "*",
-                "php": ">=5.4.4"
-            },
-            "require-dev": {
-                "nette/di": "~2.3",
-                "nette/tester": "~1.7"
-            },
-            "suggest": {
-                "https://nette.org/donate": "Please support Tracy via a donation"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src"
-                ],
-                "files": [
-                    "src/shortcuts.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "David Grudl",
-                    "homepage": "https://davidgrudl.com"
-                },
-                {
-                    "name": "Nette Community",
-                    "homepage": "https://nette.org/contributors"
-                }
-            ],
-            "description": "😎 Tracy: the addictive tool to ease debugging PHP code for cool developers. Friendly design, logging, profiler, advanced features like debugging AJAX calls or CLI support. You will love it.",
-            "homepage": "https://tracy.nette.org",
-            "keywords": [
-                "Xdebug",
-                "debug",
-                "debugger",
-                "nette",
-                "profiler"
-            ],
-            "time": "2018-02-28T00:49:47+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v2.4.0",
             "source": {
@@ -1892,6 +1939,57 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
+        },
+        {
+            "name": "zeuxisoo/slim-whoops",
+            "version": "0.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zeuxisoo/php-slim-whoops.git",
+                "reference": "217d09108878ae4787941a17a58976d2dde94397"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zeuxisoo/php-slim-whoops/zipball/217d09108878ae4787941a17a58976d2dde94397",
+                "reference": "217d09108878ae4787941a17a58976d2dde94397",
+                "shasum": ""
+            },
+            "require": {
+                "filp/whoops": "2.1.*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*",
+                "slim/slim": "3.9.*",
+                "slim/twig-view": "2.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Zeuxisoo\\Whoops\\Provider\\Slim": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Zeuxis Lo",
+                    "email": "seekstudio@gmail.com",
+                    "homepage": "http://www.not.im/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP whoops error on slim framework",
+            "homepage": "https://github.com/zeuxisoo/php-slim-whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "slim",
+                "whoops"
+            ],
+            "time": "2018-02-26T05:10:45+00:00"
         },
         {
             "name": "zhangshize/slim-facades",
@@ -2750,6 +2848,72 @@
             "time": "2017-06-30T09:13:00+00:00"
         },
         {
+            "name": "runcmf/runtracy",
+            "version": "0.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/runcmf/runtracy.git",
+                "reference": "99c87de1f0de9bab6ae60efcb37d885ce02e2c29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/runcmf/runtracy/zipball/99c87de1f0de9bab6ae60efcb37d885ce02e2c29",
+                "reference": "99c87de1f0de9bab6ae60efcb37d885ce02e2c29",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "slim/slim": "~3.7",
+                "tracy/tracy": "~2.4"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.5",
+                "illuminate/database": "^5.3",
+                "j4mie/idiorm": "^1.5",
+                "phpunit/phpunit": "^5.7",
+                "satooshi/php-coveralls": "1.*",
+                "slim/twig-view": "~2.1",
+                "squizlabs/php_codesniffer": "^2.5",
+                "twig/twig": "~1.24"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RunTracy\\": "src/RunTracy"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir",
+                    "email": "1f7.wizard@gmail.com",
+                    "homepage": "http://runcmf.ru"
+                }
+            ],
+            "description": "Slim Framework Debugger",
+            "keywords": [
+                "Doctrine DBAL",
+                "Eloquent ORM",
+                "Idorm",
+                "PTY Terminal",
+                "debug bar",
+                "debugbar",
+                "debugger",
+                "illuminate database",
+                "profiler",
+                "runtracy",
+                "slim 3",
+                "slim framework",
+                "slim3",
+                "tracy",
+                "twig"
+            ],
+            "time": "2017-05-24T11:36:38+00:00"
+        },
+        {
             "name": "sebastian/code-unit-reverse-lookup",
             "version": "1.0.1",
             "source": {
@@ -3312,6 +3476,71 @@
             "time": "2018-01-29T08:54:45+00:00"
         },
         {
+            "name": "tracy/tracy",
+            "version": "v2.4.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/tracy.git",
+                "reference": "4182ce7b92f67002509b7fa2fc34bd84deea0b24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/4182ce7b92f67002509b7fa2fc34bd84deea0b24",
+                "reference": "4182ce7b92f67002509b7fa2fc34bd84deea0b24",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-session": "*",
+                "php": ">=5.4.4"
+            },
+            "require-dev": {
+                "nette/di": "~2.3",
+                "nette/tester": "~1.7"
+            },
+            "suggest": {
+                "https://nette.org/donate": "Please support Tracy via a donation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src"
+                ],
+                "files": [
+                    "src/shortcuts.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "😎 Tracy: the addictive tool to ease debugging PHP code for cool developers. Friendly design, logging, profiler, advanced features like debugging AJAX calls or CLI support. You will love it.",
+            "homepage": "https://tracy.nette.org",
+            "keywords": [
+                "Xdebug",
+                "debug",
+                "debugger",
+                "nette",
+                "profiler"
+            ],
+            "time": "2018-02-28T00:49:47+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.3.0",
             "source": {
@@ -3364,7 +3593,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "buchin/slim-blade-view": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
