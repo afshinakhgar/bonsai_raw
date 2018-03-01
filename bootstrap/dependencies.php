@@ -57,6 +57,29 @@ $container['flash'] = function () {
 
 
 
+// Register Blade View helper
+$container['view'] = function ($container) {
+    $messages = $container->flash->getMessages();
+
+    if(!is_dir('../app/View/cache')){
+        @mkdir('../app/View/cache');
+    }
+
+    $viewSettings = $container['settings']['view'];
+    return new \Slim\Views\Blade(
+        [$viewSettings['blade_template_path'].$viewSettings['template']],
+        $viewSettings['blade_cache_path'],
+        null,
+        [
+            'translator'=> $container['translator'],
+            'messages'=> $messages,
+            'settings'  => $container->settings
+        ]
+    );
+};
+
+
+
 $whoopsGuard = new \Zeuxisoo\Whoops\Provider\Slim\WhoopsGuard();
 $whoopsGuard->setApp($app);
 $whoopsGuard->setRequest($container['request']);

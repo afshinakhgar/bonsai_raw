@@ -30,7 +30,6 @@ class DemoController extends _Controller
 //        $data = Demo::find(1);
 //        dd($data->name);
 
-         dd($this->translator->trans('messages.title'));
-
+        $this->render('admin.index',['name'=>'afshin']);
     }
 }
