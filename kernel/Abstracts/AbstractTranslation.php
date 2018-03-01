@@ -9,7 +9,7 @@
 namespace Kernel\Abstracts;
 
 
-class AbstractTranslation extends AbstractContainer
+abstract class AbstractTranslation extends AbstractContainer
 {
 
 }
