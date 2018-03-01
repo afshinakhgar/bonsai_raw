@@ -47,7 +47,7 @@ $container['generalErrorHandler'] = function ($container) {
 };
 
 $container['translator'] = function ($container) {
-    $translate = \Kernel\Helpers\TranslationHelper($container);
+    $translate = new \Kernel\Helpers\TranslationHelper($container);
     return $translate;
 };
 

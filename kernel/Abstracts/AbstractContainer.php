@@ -9,6 +9,8 @@
 namespace Kernel\Abstracts;
 
 
+use Psr\Container\ContainerInterface;
+
 abstract class AbstractContainer
 {
     protected $container;

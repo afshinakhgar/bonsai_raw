@@ -30,7 +30,7 @@ class DemoController extends _Controller
 //        $data = Demo::find(1);
 //        dd($data->name);
 
-         dd($this->translator->trans('asd'));
+         dd($this->translator->trans('messages.title'));
 
     }
 }

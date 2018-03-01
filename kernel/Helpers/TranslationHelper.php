@@ -13,13 +13,12 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Kernel\Abstracts\AbstractTranslation;
-use Kernel\Abstracts\ContainerInterface;
 
 class TranslationHelper extends AbstractTranslation
 {
     public $local = 'en';
     public $translator;
-    public function __construct(ContainerInterface $container)
+    public function __construct( $container)
     {
         parent::__construct($container);
 
