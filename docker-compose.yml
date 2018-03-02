@@ -40,3 +40,9 @@ services:
       - "./.docker/config/nginx/nginx.conf:/etc/nginx/nginx.conf"
     restart: always
     tty: true
+  composer:
+    restart: 'no'
+    image: composer/composer:php7
+    command: install
+    volumes:
+      - .:/app
