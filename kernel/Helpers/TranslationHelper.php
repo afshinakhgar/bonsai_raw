@@ -23,8 +23,8 @@ class TranslationHelper extends AbstractTranslation
         parent::__construct($container);
 
         // Register the Dutch translator (set to "en" for English)
-        $this->local = $container->get('settings')['local'] ?? 'en';
-        $loader = new FileLoader(new Filesystem(), $container->get('settings')['app']['translation_path']);
+        $this->local = $container->get('settings')['localization']['lang'] ?? 'en';
+        $loader = new FileLoader(new Filesystem(), $container->get('settings')['localization']['translation_path']);
         $this->translator = new Translator($loader, $this->local);
         return $this->translator;
     }
