@@ -78,7 +78,10 @@ $container['view'] = function ($container) {
     );
 };
 
+$app->getContainer()['view']->getRenderer()->getCompiler()->directive('helloWorld', function(){
 
+	return "<?php echo 'Hello Directive'; ?>";
+});
 
 $whoopsGuard = new \Zeuxisoo\Whoops\Provider\Slim\WhoopsGuard();
 $whoopsGuard->setApp($app);
