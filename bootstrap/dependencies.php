@@ -12,6 +12,11 @@ $container['logger'] = function($container) {
 
 
 
+$container['mailer'] = function ($container) {
+    $mailer = new \Kernel\Services\MailerService($container);
+    return $mailer->init();
+};
+
 /* database connection */
 $container['db'] = function ($container) {
     $db = $container['settings']['databases']['db'];
