@@ -12,7 +12,7 @@ $directory = New \Kernel\Helpers\DirectoryHelper();
 $command = $directory->scan('console');
 
 $exceptions = [
-    'Route List '=>'Console\RoutesListCommand'
+    'route list '=>'Console\RoutesListCommand'
 ];
 
 $commands_map = array_map(function($k) {
@@ -40,12 +40,13 @@ foreach ($commands as $class) {
     $application->add($command);
 }
 
-
 foreach($exceptions as $key=>$expClass){
     if (!class_exists($class)) {
         throw new RuntimeException(sprintf('Class %s does not exist', $class));
     }
-    $command = new $class($key,$app);
+
+
+    $command = new $expClass($key,$app);
     if (method_exists($command, 'setContainer')) {
         $command->setContainer($container);
     }
