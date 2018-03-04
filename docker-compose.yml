@@ -32,7 +32,7 @@ services:
     depends_on:
       - phpfpm
     ports:
-      - "8080:80"
+      - "8001:80"
     image: nginx:latest
     volumes:
       - "./:/var/www/html"
