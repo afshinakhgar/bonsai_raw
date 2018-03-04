@@ -113,6 +113,22 @@ if($filesInServices){
 
 
 
+$filesInHelpers = $Directory->scan(__APP_ROOT__.'/kernel/Helpers/');
+if($filesInServices){
+    foreach($filesInServices as $service){
+        $contentHelper = preg_replace('/.php/','',$service);
+        $container[$contentHelper] = function () use ($contentHelper){
+            $class =  '\\Kernel\\Helpers\\'.$contentHelper ;
+            return new $class();
+        };
+    }
+}
+
+
+
+
+
+
 // data access container
 $array = $Directory->scan(__APP_ROOT__.'/app/DataAccess/');
 foreach($array as $key=>$item){

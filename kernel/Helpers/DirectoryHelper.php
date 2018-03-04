@@ -8,6 +8,10 @@
 
 namespace Kernel\Helpers;
 
+/**
+ * Class DirectoryHelper
+ * @package Kernel\Helpers
+ */
 
 class DirectoryHelper
 {
