@@ -4,6 +4,7 @@ services:
     image: mariadb:latest
     volumes:
       - "./.docker/.data/db:/var/lib/mysql"
+      - "./resources/init.sql:/docker-entrypoint-initdb.d/:ro"
     restart: always
     ports:
       - "55555:3306"
@@ -46,3 +47,10 @@ services:
     command: install
     volumes:
       - .:/app
+  adminer:
+    image: hardware/adminer
+    container_name: adminer
+    depends_on:
+      - mysql
+    ports:
+      - "8888:8080"
