@@ -4,8 +4,7 @@ define('__APP_ROOT__', __DIR__ . '/../') ;
 require __APP_ROOT__ . 'vendor/autoload.php';
 require __APP_ROOT__ . 'kernel/Helpers/Functions/general_helpers.php';
 // start config files reader
-/** @todo disable for api only applications */
-session_start();
+
 
 
 $configFilesObj = new \Kernel\Helpers\ConfigHelper();
