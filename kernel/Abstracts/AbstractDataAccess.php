@@ -13,7 +13,7 @@ namespace Kernel\Abstracts;
  * @package Kernel\Abstracts
  */
 
-class AbstractDataAccess
+class AbstractDataAccess extends AbstractContainer
 {
 
 }

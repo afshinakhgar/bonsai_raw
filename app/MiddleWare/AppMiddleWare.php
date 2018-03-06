@@ -1,14 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: afshin
- * Date: 2/25/18
- * Time: 3:35 PM
- */
-
 namespace App\MiddleWare;
-
-
 use Kernel\Abstracts\AbstractMiddleWare;
 
 class AppMiddleWare extends AbstractMiddleWare

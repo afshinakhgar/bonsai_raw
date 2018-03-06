@@ -27,7 +27,9 @@
         "nesbot/carbon": "^1.23",
         "swiftmailer/swiftmailer": "^6.0",
         "predis/predis": "^1.1",
-        "akrabat/ip-address-middleware": "^1.0"
+        "akrabat/ip-address-middleware": "^1.0",
+        "respect/validation": "^1.1",
+        "tobscure/json-api": "^0.4.1"
     },
     "autoload": {
         "psr-4": {

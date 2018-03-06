@@ -6,7 +6,6 @@ use Kernel\Abstracts\AbstractMiddleWare;
 class RouterMiddleWare extends AbstractMiddleWare {
 
     public function __invoke($request, $response, $next) {
-
         $uri          = $request->getUri();
         $current_path = $uri->getPath();
         $route        = $request->getAttribute('route');

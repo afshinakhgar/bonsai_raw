@@ -1,11 +1,11 @@
 <?php
 return  [
     'determineRouteBeforeAppMiddleware' => true,
-    'addContentLengthHeader' => true,
+    'addContentLengthHeader' => false,
     'displayErrorDetails' => true,
     'app' => [
         'log_timer' => true,
-        'debug'=>true,
+        'debug'=>false,
         'logger' => [
             'name' => 'cafesaba',
             'level' => Monolog\Logger::DEBUG,

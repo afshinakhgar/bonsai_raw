@@ -11,8 +11,14 @@ namespace App\Controller\Api\V1;
 
 use App\Controller\_Controller;
 use App\Model\Demo;
+use App\Serializer\Demo\DemoSerializer;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Tobscure\JsonApi\Document;
+use Tobscure\JsonApi\Collection;
+use Tobscure\JsonApi\ErrorHandler;
+use Tobscure\JsonApi\Exception\Handler\FallbackExceptionHandler;
+use Tobscure\JsonApi\Exception\Handler\InvalidParameterExceptionHandler;
 
 /**
  * Class DemoController
@@ -27,9 +33,56 @@ class DemoController extends _Controller
      */
     public function index(Request $request , Response $response , array $args)
     {
-        $data = Demo::find(1);
-        dd($data->name);
 
-        $this->render('admin.index',['name'=>'afshin']);
+        try {
+//            $dataAccess = Demo::find(1)->get();
+            $dataAccess = $this->TestDataAccess->getAll();
+
+
+            $collection = (new Collection($dataAccess, new DemoSerializer($this->container)));
+            $document = new Document($collection);
+            $response = $response->withStatus(200);
+            return $response->withJson($document);
+        } catch (\Exception $e) {
+            $errors = new ErrorHandler();
+
+            $errors->registerHandler(new InvalidParameterExceptionHandler());
+            $errors->registerHandler(new FallbackExceptionHandler());
+
+            $response = $errors->handle($e);
+
+            $document = new Document;
+            $document->setErrors($response->getErrors());
+
+            return new JsonResponse($document, $response->getStatus());
+        }
+
+
+//        try {
+////            $dataAccess = Demo::find(1)->get();
+//            $dataAccess['items'] = $this->TestDataAccess->getOne(1);
+//
+//
+//            $collection = (new Collection($dataAccess, new DemoSerializer($this->container)));
+//            $document = new Document($collection);
+//            $document->addLink('aa', 'http://example.com/api/posts');
+//            echo json_encode($document);
+//        } catch (\Exception $e) {
+//            $errors = new ErrorHandler();
+//
+//            $errors->registerHandler(new InvalidParameterExceptionHandler());
+//            $errors->registerHandler(new FallbackExceptionHandler());
+//
+//            $response = $errors->handle($e);
+//
+//            $document = new Document;
+//            $document->setErrors($response->getErrors());
+//
+//            return new JsonResponse($document, $response->getStatus());
+//        }
+
+
+
+//        $this->render('admin.index',['name'=>'afshin']);
     }
 }

@@ -13,8 +13,6 @@ use Kernel\Abstracts\AbstractMiddleWare;
 
 class FlashMessageMiddleWare extends AbstractMiddleWare
 {
-
-
     public function __invoke($request, $response, $next )
     {
 //        $response->getBody()->write('BEFORE');

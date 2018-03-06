@@ -124,43 +124,23 @@ if($filesInServices){
     }
 }
 
-
-
-
-
-
 // data access container
-$array = $Directory->scan(__APP_ROOT__.'/app/DataAccess/');
-foreach($array as $key=>$item){
-    if(is_dir($item)){
-        $classDataAccessFolder[$item] = $Directory->scan(__APP_ROOT__.'/app/DataAccess/'.$item);
-    }else{
-        $classDataAccessFolder['DataAccess'] = $item;
+$dataAccessFiles = $Directory->listFolderFiles(__APP_ROOT__.'/app/DataAccess/');
 
-    }
+
+foreach($dataAccessFiles as $key=>$item){
+    $arrayC = str_replace(str_replace('/','\\',__DIR__),'',$item['class']);
+
+    $classDataAccessFolder[$item['class_name']] = trim(str_replace("\\\\","\\",$arrayC),'\\');
+
+
 }
 $result = array();
-foreach($classDataAccessFolder as $DaFolder=>$DAFile)
-{
-    if(is_dir($DAFile)){
-        foreach($DAFile as $r){
-            $dataAccessFiles[$r] = $DaFolder.'\\'.$r;
-        }
-    }else{
-        $dataAccessFiles[$DAFile] = $DaFolder.'\\'.$DAFile;
-    }
-
-}
-
-foreach($dataAccessFiles as $key=>$dataAccessFile){
-    $contentDataAccess = preg_replace('/.php/','',$dataAccessFile);
-    $containerDataAccess = preg_replace('/.php/','',$key);
-    $container[$containerDataAccess] = function ($container) use ($contentDataAccess){
-        $classDataAccess =  '\\App\\DataAccess\\'.$contentDataAccess ;
-        return new $classDataAccess($container);
+foreach($classDataAccessFolder as $key=>$dataAccessFile){
+    $container[$key] = function ($container) use ($dataAccessFile){
+        return new $dataAccessFile($container);
     };
 }
-
 
 
 
