@@ -4,7 +4,9 @@ define('__APP_ROOT__', __DIR__ . '/../') ;
 require __APP_ROOT__ . 'vendor/autoload.php';
 require __APP_ROOT__ . 'kernel/Helpers/Functions/general_helpers.php';
 // start config files reader
-
+if (PHP_SAPI === 'cli') {
+	session_start();
+}
 
 $configFilesObj = new \Kernel\Helpers\ConfigHelper();
 $config['settings'] = $configFilesObj->loader(__APP_ROOT__.'/config/');
