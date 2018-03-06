@@ -17,7 +17,7 @@ class TestDataAccess extends AbstractDataAccess
         $sth = $this->db->prepare($sql);
         $sth->bindValue(':id', $id, PDO::PARAM_INT);
         $sth->execute();
-        $item['item'] = $sth->fetch(PDO::FETCH_OBJ);
+        $item = $sth->fetch(PDO::FETCH_OBJ);
         return $item;
     }
     public function getAll()

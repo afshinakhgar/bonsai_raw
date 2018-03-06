@@ -15,6 +15,7 @@ class JsonApiSerializer extends AbstractSerializer
 {
     protected $container;
     public $model;
+	protected $type = '';
 
 
 
