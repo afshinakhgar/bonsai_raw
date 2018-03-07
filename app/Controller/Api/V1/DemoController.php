@@ -46,7 +46,7 @@ class DemoController extends _Controller
 //            $this->validator->addError('username', 'User already exists with this username.');
 
             if (!$this->validator->isValid()) {
-//                return $this->badRequest($response, $this->validator->getErrors());
+                return $this->badRequest($response, $this->validator->getErrors());
 
                 throw new GeneralException('error',400);
             }

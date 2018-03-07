@@ -13,11 +13,14 @@ namespace Kernel\Abstracts;
 use Kernel\Handlers\ErrorHandler;
 use Kernel\JsonApi\Exceptions\Handler\GeneralExceptionHandler;
 use Exception;
+use Kernel\Traits\RestTrait;
 use Slim\Http\Response;
 use Tobscure\JsonApi\Document;
 
 abstract class AbstractController extends AbstractContainer
 {
+
+    use RestTrait;
     public function catchErrorHandler(Response $response, Exception $e)
     {
 
