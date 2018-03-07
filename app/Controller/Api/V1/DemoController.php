@@ -37,7 +37,7 @@ class DemoController extends _Controller
     {
 
         try {
-            $dataAccess = $this->TestDataAccess->getOne(1);
+            $dataAccess = $this->DemoDataAccess->getOne(1);
             $collection = (new Collection($dataAccess['item'], new DemoSerializer($this->container)));
             $document = new Document($collection);
             $response = $response->withStatus(200);

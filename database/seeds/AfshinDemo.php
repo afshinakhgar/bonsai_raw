@@ -14,9 +14,9 @@ class AfshinDemo extends AbstractSeed
      */
     public function run()
     {
-        $d = new \App\Model\Demo();
-        $d->name = 'Hello World!';
-        $d->save();
+//        $d = new \App\Model\Demo();
+//        $d->name = 'Hello World!';
+//        $d->save();
 
     }
 }

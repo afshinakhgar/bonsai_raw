@@ -3,17 +3,21 @@
 use Phinx\Migration\AbstractMigration;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class !name extends AbstractMigration
+class CreateDemoTable extends AbstractMigration
 {
     /**
      * Do the migration
      */
     public function up()
     {
-        Capsule::schema()->create('?name', function($table)
+        Capsule::schema()->create('demo', function($table)
         {
             $table->increments('id');
+            $table->string('name');
+            $table->string('last');
+
             $table->timestamps();
+
         });
     }
 
@@ -22,6 +26,6 @@ class !name extends AbstractMigration
      */
     public function down()
     {
-        Capsule::schema()->drop('?name');
+        Capsule::schema()->drop('demo');
     }
 }

@@ -29,7 +29,8 @@
         "predis/predis": "^1.1",
         "akrabat/ip-address-middleware": "^1.0",
         "respect/validation": "^1.1",
-        "tobscure/json-api": "^0.4.1"
+        "tobscure/json-api": "^0.4.1",
+        "fzaninotto/faker": "^1.7"
     },
     "autoload": {
         "psr-4": {

@@ -9,11 +9,11 @@ use Kernel\Abstracts\AbstractDataAccess;
  * Class TestDataAccess
  * @package App\DataAccess
  */
-class TestDataAccess extends AbstractDataAccess
+class DemoDataAccess extends AbstractDataAccess
 {
     public function getOne(int $id)
     {
-        $sql = "SELECT * FROM test  WHERE id=:id";
+        $sql = "SELECT * FROM demo  WHERE id=:id";
         $sth = $this->db->prepare($sql);
         $sth->bindValue(':id', $id, PDO::PARAM_INT);
         $sth->execute();
@@ -22,7 +22,7 @@ class TestDataAccess extends AbstractDataAccess
     }
     public function getAll()
     {
-        $sql = "SELECT * FROM test   ORDER BY id DESC";
+        $sql = "SELECT * FROM demo   ORDER BY id DESC";
         $sth = $this->db->prepare($sql);
 
         $sth->execute();
