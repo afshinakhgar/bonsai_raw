@@ -33,7 +33,29 @@ class DemoController extends _Controller
     {
 
         try {
+            $this->validator->array($args, [
+                'name' => [
+                    'rules' => V::length(3, 25)->alnum('_')->noWhitespace(),
+                    'messages' => [
+                        'length' => 'The password length must be between {{minValue}} and {{maxValue}} characters',
+                        'alnum' => 'asdasdsa',
+                        'noWhitespace' => 'noWhitespace',
+                    ]
+                ],
+//                'password' => [
+//                    'rules' => V::noWhitespace()->length(6, 25),
+//                    'messages' => [
+//                        'length' => 'The password length must be between {{minValue}} and {{maxValue}} characters'
+//                    ]
+//                ]
+            ]);
+//            $this->validator->addError('username', 'User already exists with this username.');
 
+            if (!$this->validator->isValid()) {
+                return $this->badRequest($response, $this->validator->getErrors());
+
+                throw new GeneralException('error',400);
+            }
 
             $dataAccess = $this->DemoDataAccess->getAll();
             if(!$dataAccess){

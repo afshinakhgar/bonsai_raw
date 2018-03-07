@@ -60,6 +60,10 @@ $container['flash'] = function () {
     return new \Slim\Flash\Messages();
 };
 
+$container['validator'] = function ($container) {
+    $translate = new \Kernel\Validator();
+    return $translate;
+};
 
 
 // Register Blade View helper

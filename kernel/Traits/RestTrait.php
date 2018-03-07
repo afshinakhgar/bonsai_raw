@@ -27,7 +27,9 @@ trait RestTrait
 
     protected function badRequest(Response $response, $data)
     {
-        return $response->withJson($data, 400);
+        $data_error['error'] = $data;
+        $data_error['code'] = 400;
+        return $response->withJson($data_error, 400);
 
     }
 
