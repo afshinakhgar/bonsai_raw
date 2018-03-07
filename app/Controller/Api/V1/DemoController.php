@@ -16,6 +16,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Tobscure\JsonApi\Document;
 use Tobscure\JsonApi\Collection;
+use Respect\Validation\Validator as V;
 
 /**
  * Class DemoController
@@ -32,9 +33,27 @@ class DemoController extends _Controller
     {
 
         try {
+            $this->validator->request($request, [
+                'name' => V::length(3, 25)->alnum('_')->noWhitespace(),
+                'password' => [
+                    'rules' => V::noWhitespace()->length(6, 25),
+                    'messages' => [
+                        'length' => 'The password length must be between {{minValue}} and {{maxValue}} characters'
+                    ]
+                ]
+            ]);
+
+//            $this->validator->addError('username', 'User already exists with this username.');
+
+            if (!$this->validator->isValid()) {
+//                return $this->badRequest($response, $this->validator->getErrors());
+
+                throw new GeneralException('error',400);
+            }
+
             $dataAccess = $this->DemoDataAccess->getAll();
             if(!$dataAccess){
-                throw new GeneralException('asdasds',400);
+                throw new GeneralException('asdasds',404);
             }
 
             $collection = (new Collection($dataAccess, new DemoSerializer($this->container)));
