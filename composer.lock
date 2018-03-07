@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b5bcac6a4af499415cbb21bde954bcd",
+    "content-hash": "e51376689c107d0c0eca5854f04831e5",
     "packages": [
         {
             "name": "akrabat/ip-address-middleware",
@@ -193,6 +193,54 @@
                 "validator"
             ],
             "time": "2017-03-21T13:31:00+00:00"
+        },
+        {
+            "name": "devster/ubench",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devster/ubench.git",
+                "reference": "255dd8d52f097918c5806f9214a8a1615ee394b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devster/ubench/zipball/255dd8d52f097918c5806f9214a8a1615ee394b5",
+                "reference": "255dd8d52f097918c5806f9214a8a1615ee394b5",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ubench": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Perret",
+                    "email": "jeremy@devster.org"
+                }
+            ],
+            "description": "Micro PHP library for benchmarking",
+            "homepage": "https://github.com/devster/ubench",
+            "keywords": [
+                "bench",
+                "benchmark",
+                "library",
+                "micro"
+            ],
+            "time": "2017-11-02T16:41:47+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1539,16 +1587,16 @@
         },
         {
             "name": "psr/simple-cache",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/simple-cache.git",
-                "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24"
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/753fa598e8f3b9966c886fe13f370baa45ef0e24",
-                "reference": "753fa598e8f3b9966c886fe13f370baa45ef0e24",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
                 "shasum": ""
             },
             "require": {
@@ -1583,7 +1631,7 @@
                 "psr-16",
                 "simple-cache"
             ],
-            "time": "2017-01-02T13:31:39+00:00"
+            "time": "2017-10-23T01:57:42+00:00"
         },
         {
             "name": "respect/validation",
@@ -1945,7 +1993,7 @@
         },
         {
             "name": "symfony/config",
-            "version": "v4.0.5",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
@@ -2075,7 +2123,7 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v3.4.5",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
@@ -2131,7 +2179,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.0.5",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
@@ -2180,16 +2228,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.5",
+            "version": "v3.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "6a615613745cef820d807443f32076bb9f5d0a38"
+                "reference": "a479817ce0a9e4adfd7d39c6407c95d97c254625"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/6a615613745cef820d807443f32076bb9f5d0a38",
-                "reference": "6a615613745cef820d807443f32076bb9f5d0a38",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/a479817ce0a9e4adfd7d39c6407c95d97c254625",
+                "reference": "a479817ce0a9e4adfd7d39c6407c95d97c254625",
                 "shasum": ""
             },
             "require": {
@@ -2225,7 +2273,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-02-11T17:15:12+00:00"
+            "time": "2018-03-05T18:28:11+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3994,7 +4042,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.8.35",
+            "version": "v2.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",

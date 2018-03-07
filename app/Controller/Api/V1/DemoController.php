@@ -73,4 +73,59 @@ class DemoController extends _Controller
 
 //        $this->render('admin.index',['name'=>'afshin']);
     }
+
+
+
+    public function benchmark()
+    {
+        $bench = new \Ubench();
+
+        $bench->start();
+
+// Execute some code
+
+        $bench->end();
+
+
+        $benchmark = [
+            'time' => $bench->getTime(),
+            'time float' => $bench->getTime(true),
+            'time float' => $bench->getTime(true),
+            'memory pick' => $bench->getMemoryPeak(),
+            'memory pick' => $bench->getMemoryPeak(),
+        ];
+
+// Get elapsed time and memory
+//        echo $bench->getTime(); // 156ms or 1.123s
+//        echo '<hr>';
+//        echo '<br>';
+//        echo $bench->getTime(true); // elapsed microtime in float
+//        echo '<hr>';
+//        echo '<br>';
+//        echo $bench->getTime(false, '%d%s'); // 156ms or 1s
+//        echo '<hr>';
+//        echo '<br>';
+//
+//        echo $bench->getMemoryPeak(); // 152B or 90.00Kb or 15.23Mb
+//        echo '<hr>';
+//        echo '<br>';
+//        echo $bench->getMemoryPeak(true); // memory peak in bytes
+//        echo '<hr>';
+//        echo '<br>';
+//        echo $bench->getMemoryPeak(false, '%.3f%s'); // 152B or 90.152Kb or 15.234Mb
+//        echo '<hr>';
+//        echo '<br>';
+//// Returns the memory usage at the end mark
+//        echo $bench->getMemoryUsage(); // 152B or 90.00Kb or 15.23Mb
+//        echo '<hr>';
+//        echo '<br>';
+// Runs `Ubench::start()` and `Ubench::end()` around a callable
+// Accepts a callable as the first parameter.  Any additional parameters will be passed to the callable.
+        $result = $bench->run(function ($x) {
+            return $x;
+        }, 1);
+
+
+        echo json_encode($benchmark);
+    }
 }
