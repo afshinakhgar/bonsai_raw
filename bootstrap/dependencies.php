@@ -46,14 +46,6 @@ $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 
-use Awurth\SlimValidation\Validator;
-use Awurth\SlimValidation\ValidatorExtension;
-
-
-// https://github.com/awurth/SlimValidation
-$container['validator'] = function () {
-    return new Validator();
-};
 
 $container['generalErrorHandler'] = function ($container) {
     return new \Kernel\Handlers\ErrorHandler($container['logger']);
