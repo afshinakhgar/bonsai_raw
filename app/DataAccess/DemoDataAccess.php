@@ -13,16 +13,16 @@ class DemoDataAccess extends AbstractDataAccess
 {
     public function getOne(int $id)
     {
-        $sql = "SELECT * FROM demo  WHERE id=:id";
+        $sql = "SELECT * FROM demo WHERE id=:id";
         $sth = $this->db->prepare($sql);
         $sth->bindValue(':id', $id, PDO::PARAM_INT);
         $sth->execute();
-        $item = $sth->fetch(PDO::FETCH_OBJ);
+        $item['item'] = $sth->fetch(PDO::FETCH_OBJ);
         return $item;
     }
     public function getAll()
     {
-        $sql = "SELECT * FROM demo   ORDER BY id DESC";
+        $sql = "SELECT * FROM demo  ORDER BY id DESC";
         $sth = $this->db->prepare($sql);
 
         $sth->execute();

@@ -14,7 +14,8 @@ use Faker\Factory;
 class FakerHandler
 {
     public $providers = [
-        'Kernel\Handlers\Faker\Providers\FakerBookProvider'
+        'Kernel\Handlers\Faker\Providers\FakerBookProvider',
+        'Faker\Provider\Lorem',
     ];
 
 

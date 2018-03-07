@@ -10,17 +10,12 @@ namespace App\Controller\Api\V1;
 
 
 use App\Controller\_Controller;
-use App\Model\Demo;
 use App\Serializer\Demo\DemoSerializer;
 use Kernel\JsonApi\Exceptions\GeneralException;
-use Kernel\JsonApi\Exceptions\Handler\GeneralExceptionHandler;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Tobscure\JsonApi\Document;
 use Tobscure\JsonApi\Collection;
-use Tobscure\JsonApi\ErrorHandler;
-use Tobscure\JsonApi\Exception\Handler\FallbackExceptionHandler;
-use Tobscure\JsonApi\Exception\Handler\InvalidParameterExceptionHandler;
 
 /**
  * Class DemoController
@@ -37,14 +32,17 @@ class DemoController extends _Controller
     {
 
         try {
-            $dataAccess = $this->DemoDataAccess->getOne(1);
-            $collection = (new Collection($dataAccess['item'], new DemoSerializer($this->container)));
+            $dataAccess = $this->DemoDataAccess->getAll();
+            if(!$dataAccess){
+                throw new GeneralException('asdasds',400);
+            }
+
+            $collection = (new Collection($dataAccess, new DemoSerializer($this->container)));
             $document = new Document($collection);
             $response = $response->withStatus(200);
             return $response->withJson($document);
         } catch (GeneralException $e) {
-			$exp = new GeneralExceptionHandler($e);
-			$exp->handle($e);
+            return $this->catchErrorHandler( $response,$e);
         }
 
 
