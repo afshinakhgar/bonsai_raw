@@ -13,8 +13,15 @@ use Awurth\SlimValidation\Validator as ValidationValidate;
 
 class Validator extends ValidationValidate
 {
+	public $defaultMessages = [
+		'length' => 'default Length'
+	];
+
     public function __construct($showValidationRules = true, $defaultMessages = [])
     {
+		$defaultMessages = $this->defaultMessages;
         parent::__construct($showValidationRules, $defaultMessages);
     }
+
+
 }

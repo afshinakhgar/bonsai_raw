@@ -37,7 +37,6 @@ class DemoController extends _Controller
                 'name' => [
                     'rules' => V::length(3, 25)->alnum('_')->noWhitespace(),
                     'messages' => [
-                        'length' => 'The password length must be between {{minValue}} and {{maxValue}} characters',
                         'alnum' => 'asdasdsa',
                         'noWhitespace' => 'noWhitespace',
                     ]

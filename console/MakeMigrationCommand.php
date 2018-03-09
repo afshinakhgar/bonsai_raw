@@ -8,8 +8,10 @@
 
 namespace Console;
 use Kernel\Abstracts\AbstractConsole;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 class MakeMigrationCommand extends AbstractConsole
 {
@@ -23,6 +25,12 @@ class MakeMigrationCommand extends AbstractConsole
                 InputArgument::REQUIRED,
                 'Migration name to Generate'
             )
+			->addOption(
+				'--table',
+				null,
+				InputOption::VALUE_OPTIONAL,
+				'table model'
+			)
             ->addArgument(
                 'column',
                 InputArgument::IS_ARRAY,
@@ -39,6 +47,7 @@ class MakeMigrationCommand extends AbstractConsole
         $file = file_get_contents("resources/command_templates/create_migration.txt");
         $explodedArrName = explode('_',$names);
         $classNameNew ='';
+
         foreach($explodedArrName as $parted_names){
             $classNameNew .= ucfirst($parted_names);
         }
@@ -54,6 +63,10 @@ class MakeMigrationCommand extends AbstractConsole
             $map    .= '$table->'.$type.'("'.$name.'");'."\n";
         }
         $file = str_replace("!table", $map, $file);
+
+        $tableName = $input->getOption('--table') ?? $name;
+        $file = str_replace("!table_name", $tableName, $file);
+
         $explodedArrName = explode('_',$names);
         $fileNameNew ='';
         foreach($explodedArrName as $parted_names){
@@ -68,6 +81,19 @@ class MakeMigrationCommand extends AbstractConsole
         } else {
             $output->writeln("Class migration already Exists!");
         }
+
+		if($input->getOption('--table'))
+		{
+			$command = $this->getApplication()->find('make:model');
+
+			$arguments = array(
+				'command' => 'make:model',
+				'name'    => $input->getOption	('--table'),
+			);
+
+			$greetInput = new ArrayInput($arguments);
+			$returnCode = $command->run($greetInput, $output);
+		}
 
     }
 }

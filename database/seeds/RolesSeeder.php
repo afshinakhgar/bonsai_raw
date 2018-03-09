@@ -2,7 +2,7 @@
 
 use \Kernel\Abstracts\AbstractSeed;
 
-class !name extends AbstractSeed
+class RolesSeeder extends AbstractSeed
 {
     public function run()
     {
