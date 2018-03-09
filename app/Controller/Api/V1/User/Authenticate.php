@@ -11,7 +11,9 @@ namespace App\Controller\Api\V1\User;
 
 use App\Controller\_Controller;
 use App\Serializer\Api\V1\User\AuthenticateSerializer;
+use Illuminate\Support\Facades\Hash;
 use Kernel\Facades\Auth;
+use Kernel\Helpers\HashHelper;
 use Kernel\JsonApi\Exceptions\GeneralException;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -34,13 +36,27 @@ class Authenticate extends _Controller
 		try {
 			$loginField = $request->getHeader('login')[0];
 			$token = $request->getHeader('token')[0];
-			$user = Auth::loginByApiToken($loginField,$token)->get();
+
+			if(!$token){
+				$password = $request->getHeader('password')[0];
+			}else{
+				$user = Auth::loginByApiToken($loginField,$token);
+
+			}
+
+
+			if(!$user){
+				$user = Auth::loginByPassword($loginField,HashHelper::hash($password));
+			}
 //            $this->validator->addError('username', 'User already exists with this username.');
+
+
+			if($user){
+				$user = $user->get();
+			}
 
 			if (!$this->validator->isValid()) {
 				return $this->badRequest($response, $this->validator->getErrors());
-
-				throw new GeneralException('error',400);
 			}
 
 
