@@ -11,6 +11,7 @@ namespace App\Controller\Api\V1;
 
 use App\Controller\_Controller;
 use App\Serializer\Demo\DemoSerializer;
+use Kernel\Facades\Auth;
 use Kernel\JsonApi\Exceptions\GeneralException;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -33,21 +34,8 @@ class DemoController extends _Controller
     {
 
         try {
-            $this->validator->array($args, [
-                'name' => [
-                    'rules' => V::length(3, 25)->alnum('_')->noWhitespace(),
-                    'messages' => [
-                        'alnum' => 'asdasdsa',
-                        'noWhitespace' => 'noWhitespace',
-                    ]
-                ],
-//                'password' => [
-//                    'rules' => V::noWhitespace()->length(6, 25),
-//                    'messages' => [
-//                        'length' => 'The password length must be between {{minValue}} and {{maxValue}} characters'
-//                    ]
-//                ]
-            ]);
+            $a = Auth::login('afshin','asdsa');
+            dd($a);
 //            $this->validator->addError('username', 'User already exists with this username.');
 
             if (!$this->validator->isValid()) {

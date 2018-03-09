@@ -32,10 +32,15 @@ class MakeDataAccessCommand extends AbstractConsole
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
+		$nameArr = explode('/',$name);
+
+		if(is_array($nameArr)){
+			$nameClass = $nameArr[count($nameArr)-1];
+		}
 
         $directory = "app/DataAccess/";
         $file = file_get_contents("resources/command_templates/create_dataaccess.txt");
-        $file = str_replace("!name", $name.'DataAccess', $file);
+        $file = str_replace("!name", $nameClass, $file);
         if (is_dir($directory) && !is_writable($directory)) {
             $output->writeln('The "%s" directory is not writable');
             return;
@@ -55,8 +60,8 @@ class MakeDataAccessCommand extends AbstractConsole
                 return;
             }
         }
-        if (!file_exists($directory.$name."DataAccess.php")) {
-            $fh = fopen($directory . $name . "DataAccess.php", "w");
+        if (!file_exists($directory.$name.".php")) {
+            $fh = fopen($directory . $name . ".php", "w");
             fwrite($fh, $file);
             fclose($fh);
             $className = $name . ".php";

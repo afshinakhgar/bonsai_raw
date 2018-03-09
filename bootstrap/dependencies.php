@@ -116,6 +116,18 @@ if($filesInServices){
 }
 
 
+$filesInServices = $Directory->scan(__APP_ROOT__.'/kernel/Services/');
+if($filesInServices){
+	foreach($filesInServices as $service){
+		$content = preg_replace('/.php/','',$service);
+		$container['Kernel_'.$content] = function () use ($container , $content){
+			$class =  '\\Kernel\\Services\\'.$content ;
+			return new $class($container);
+		};
+	}
+}
+
+
 
 $filesInHelpers = $Directory->scan(__APP_ROOT__.'/kernel/Helpers/');
 if($filesInServices){
