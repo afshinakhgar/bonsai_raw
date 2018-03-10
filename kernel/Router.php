@@ -8,6 +8,20 @@ use Kernel\Abstracts\AbstractRouter;
  */
 class Router extends AbstractRouter
 {
+    public $autoRouteOptions = [
+
+    ];
+
+    public function __construct($app)
+    {
+        parent::__construct($app);
+
+        $app->get('/ping', function($request, $response){
+            $response = $response->withStatus(200);
+            return $response->withJson(array('status' => 'success', 'message' => 'pong'));
+        });
+    }
+
     public  function resource($url, $controller, $args = [])
     {
         $url = rtrim($url,'/');

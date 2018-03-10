@@ -72,4 +72,12 @@ class Authenticate extends _Controller
 	}
 
 
+
+
+	public function get_test_Action()
+    {
+        dd(2);
+    }
+
+
 }
