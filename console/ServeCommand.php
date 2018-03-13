@@ -2,6 +2,7 @@
 namespace Console;
 
 use Kernel\Abstracts\AbstractConsole;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,18 +22,17 @@ class ServeCommand extends AbstractConsole
         $this
             ->setName('serve')
             ->setDescription('Serve the application on the PHP development server.')
-            ->addOption(
-                '--port',
-                null,
-                InputOption::VALUE_OPTIONAL,
-                'OPTIONAL PORT'
+            ->addArgument(
+                'port',
+                InputArgument::OPTIONAL,
+                'local port'
             )
         ;
 
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $port = 8003;
+        $port   = $input->getArgument('port') ?? 8000;
 
         $style = new OutputFormatterStyle('green');
         $output->getFormatter()->setStyle('fire', $style);
