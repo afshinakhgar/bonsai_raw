@@ -9,6 +9,7 @@
 namespace Console;
 use Kernel\Abstracts\AbstractConsole;
 use SebastianBergmann\GlobalState\RuntimeException;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
@@ -27,14 +28,12 @@ class OptimizeCommand extends AbstractConsole
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $process = new Process('composer dump-autoload -o');
-        $process->run();
-        if (!$process->isSuccessful()) {
-            throw new RuntimeException($process->getErrorOutput());
-        }
-        print $process->getOutput();
+        $style = new OutputFormatterStyle('green');
+        $output->getFormatter()->setStyle('fire', $style);
+        passthru( "composer dump-autoload -o");
 
-        $output->writeln(PHP_EOL.'Optimized ');
+        $output->writeln('<fire>Optimized</fire>');
+
 
     }
 
