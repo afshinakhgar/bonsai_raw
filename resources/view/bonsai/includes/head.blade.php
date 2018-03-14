@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{asset('templates/bonsai/bootstrap/css/bootstrap.min.css')}}">
 <script src="{{asset('templates/bonsai/jquery/jquery.min.js')}}"></script>
 
-<script src="{{asset('/templates/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/templates/bonsai/bootstrap/js/bootstrap.min.js')}}"></script>
 
 
 <link rel="stylesheet" href="{{asset('templates/bonsai/css/main.css')}}">
