@@ -2,6 +2,7 @@
 namespace Kernel\Abstracts;
 use Psr\Container\ContainerInterface;
 use Kernel\Helpers\DirectoryHelper;
+use Slim\Route;
 
 /**
  * Class AbstractRouter

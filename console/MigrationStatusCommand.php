@@ -10,6 +10,7 @@ namespace Console;
 use Kernel\Abstracts\AbstractConsole;
 use Phinx\Console\PhinxApplication;
 use SebastianBergmann\GlobalState\RuntimeException;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,17 +25,18 @@ class MigrationStatusCommand extends AbstractConsole
 
         $this
             ->setName('migrate:status')
-            ->setDescription('Migration Execution')
+            ->setDescription('Migration STATUS ')
         ;
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $process = new Process('./vendor/bin/phinx status');
-        $process->run();
-        if (!$process->isSuccessful()) {
-            throw new RuntimeException($process->getErrorOutput());
-        }
-        print $process->getOutput();
+
+        $style = new OutputFormatterStyle('green');
+        $output->getFormatter()->setStyle('fire', $style);
+        $output->writeln('<fire>Bonsai Migration status</fire>');
+        passthru('./vendor/bin/phinx status');
+
+
     }
 
 }

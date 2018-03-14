@@ -53,4 +53,11 @@ foreach($exceptions as $key=>$expClass){
     $application->add($command);
 }
 
+
+$output = new Symfony\Component\Console\Output\ConsoleOutput();
+$style = new Symfony\Component\Console\Formatter\OutputFormatterStyle('blue', null, array('bold'));
+$output->getFormatter()->setStyle('header', $style);
+
+
+
 $application->run();

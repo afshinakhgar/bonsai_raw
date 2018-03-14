@@ -9,7 +9,11 @@ $container['logger'] = function($container) {
     return $logger;
 };
 
-
+$container['notFoundHandler'] = function ($container) {
+    return function (\Slim\Http\Request $request, \Slim\Http\Response $response) use ($container) {
+        return $container['view']->render($response->withStatus(404), '404');
+    };
+};
 
 
 $container['mailer'] = function ($container) {
@@ -63,6 +67,17 @@ $container['flash'] = function () {
 $container['validator'] = function ($container) {
     $translate = new \Kernel\Validator();
     return $translate;
+};
+use League\Flysystem\Filesystem;
+use League\Flysystem\Adapter\Local;
+$container['validator'] = function ($container) {
+
+    $filesystem = $container['settings']['filesystem'] ?? __DIR__.'/storage';
+
+    $adapter = new Local($filesystem);
+    $filesystem = new Filesystem($adapter);
+
+    return $filesystem;
 };
 
 

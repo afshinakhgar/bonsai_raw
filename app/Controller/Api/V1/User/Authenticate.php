@@ -30,9 +30,6 @@ class Authenticate extends _Controller
 	 */
 	public function login(Request $request , Response $response , $args)
 	{
-
-
-
 		try {
 			$loginField = $request->getHeader('login')[0];
 			$token = $request->getHeader('token')[0];
