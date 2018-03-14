@@ -4,7 +4,6 @@ services:
     image: mariadb:latest
     volumes:
       - "./.docker/.data/db:/var/lib/mysql"
-      - "./resources/data/init.sql:/tmp/init.sql"
     restart: always
     ports:
       - "55555:3306"
@@ -14,7 +13,7 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    command: mysqld --user=root --verbose
+    command: --init-file "resources/data/init.sql"
   redis:
     image: redis:latest
     restart: always
@@ -49,10 +48,3 @@ services:
     command: install
     volumes:
       - .:/app
-  adminer:
-    image: hardware/adminer
-    container_name: adminer
-    depends_on:
-      - mysql
-    ports:
-      - "8888:8080"
