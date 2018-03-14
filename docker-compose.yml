@@ -4,6 +4,8 @@ services:
     image: mariadb:latest
     volumes:
       - "./.docker/.data/db:/var/lib/mysql"
+      - "./.docker/import.sh:/tmp/import.sh"
+
     restart: always
     ports:
       - "55555:3306"
@@ -13,23 +15,22 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    command: --init-file "resources/data/init.sql"
+    command: mysqld --user=root --verbose
   redis:
     image: redis:latest
     restart: always
     ports:
       - "44444:6379"
   phpfpm:
-    image: 10up/php-v8:7.0-fpm
+    image: php:7-fpm
     depends_on:
       - mysql
       - redis
     volumes:
       - "./:/var/www/html"
-      - "./.docker/config/php-fpm/php.ini:/usr/local/etc/php/php.ini"
-      - "./.docker/config/php-fpm/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
-      - "./.docker/config/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf"
+      - "./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini"
     restart: always
+    command: 'php bonsai migrate:up'
   nginx:
     depends_on:
       - phpfpm
@@ -47,4 +48,9 @@ services:
     image: composer/composer:php7
     command: install
     volumes:
-      - .:/app
+      - .:/var/www/html/
+#    command: "install --ignore-platform-reqs"
+  app:
+      build:
+        context: .
+        dockerfile: .docker/config/php-fpm/Dockerfile
