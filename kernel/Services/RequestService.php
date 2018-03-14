@@ -10,6 +10,9 @@ namespace Kernel\Services;
 
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+
+
 use Kernel\Abstracts\AbstractServices;
 
 class RequestService extends AbstractServices
@@ -25,7 +28,7 @@ class RequestService extends AbstractServices
         'put'
     ];
 
-    public function psr7Request($url , $method = 'get' , $options = [])
+    public function Request($url , $method = 'get' , $options = [])
     {
 
         if(!in_array($method,$this->allowedMethods)){
@@ -55,4 +58,32 @@ class RequestService extends AbstractServices
         ];
 
     }
+
+
+    public function psr7Request($url , $method = 'get')
+    {
+        if(!in_array($method,$this->allowedMethods)){
+            return false;
+        }
+        $request = new Request($method, $url);
+
+        $code = $request->getStatusCode(); // 200
+        $reason = $request->getReasonPhrase(); // OK
+        $body = $request->getBody(getBody);
+
+        foreach ($request->getHeaders() as $name => $values) {
+            $headers[$name] = $values;
+        }
+
+
+
+        return [
+            'code' => $code,
+            'reason' => $reason,
+            'body' => $body,
+        ];
+
+
+    }
+
 }
