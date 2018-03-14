@@ -46,7 +46,7 @@ class MakeControllerCommand extends AbstractConsole
 
             $namespace = rtrim($namespace,'\\');
 
-            $file = str_replace("!use_controller", "use App\\Controller\\Controller;", $file);
+            $file = str_replace("!use_controller", "use App\\Controller\\_Controller;", $file);
 
             $file = str_replace("!namespace", "App\\Controller\\{$namespace}", $file);
 
