@@ -64,6 +64,17 @@ $container['validator'] = function ($container) {
     $translate = new \Kernel\Validator();
     return $translate;
 };
+use League\Flysystem\Filesystem;
+use League\Flysystem\Adapter\Local;
+$container['validator'] = function ($container) {
+
+    $filesystem = $container['settings']['filesystem'] ?? __DIR__.'/storage';
+
+    $adapter = new Local($filesystem);
+    $filesystem = new Filesystem($adapter);
+
+    return $filesystem;
+};
 
 
 // Register Blade View helper
