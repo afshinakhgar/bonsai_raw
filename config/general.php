@@ -14,7 +14,7 @@ return  [
     ],
 	'localization'=> [
 		'translation_path'=>__DIR__ . '/../translation',
-		'lang' => 'fa'
+		'lang' => 'en'
 	]
 
 ];

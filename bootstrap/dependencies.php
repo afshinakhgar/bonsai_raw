@@ -9,7 +9,11 @@ $container['logger'] = function($container) {
     return $logger;
 };
 
-
+$container['notFoundHandler'] = function ($container) {
+    return function (\Slim\Http\Request $request, \Slim\Http\Response $response) use ($container) {
+        return $container['view']->render($response->withStatus(404), '404');
+    };
+};
 
 
 $container['mailer'] = function ($container) {

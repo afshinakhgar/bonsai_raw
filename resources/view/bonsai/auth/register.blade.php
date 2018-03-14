@@ -19,12 +19,10 @@
                 <label for="login">mobile</label>
                 <input  name="login"  type="login" class="form-control" id="mobile" placeholder="mobile">
             </div>
-            @if(!$settings['app']['auth']['2step'])
             <div class="form-group">
                 <label for="login">password</label>
                 <input  name="password"  type="password" class="form-control" id="mobile" placeholder="password">
             </div>
-            @endif
             <div class="form-group">
                 <input type="submit" class="submit btn-success" value="register">
             </div>
