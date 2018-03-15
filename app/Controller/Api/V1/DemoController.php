@@ -10,6 +10,7 @@ namespace App\Controller\Api\V1;
 
 
 use App\Controller\_Controller;
+use App\Model\User;
 use App\Serializer\Demo\DemoSerializer;
 use Kernel\Facades\Auth;
 use Kernel\JsonApi\Exceptions\GeneralException;
@@ -34,7 +35,10 @@ class DemoController extends _Controller
     {
 
         try {
-            $a = Auth::login('afshin','asdsa');
+
+            $a = User::All();
+            dd($a);
+//            $a = Auth::login('afshin','asdsa');
             dd($a);
 //            $this->validator->addError('username', 'User already exists with this username.');
 
