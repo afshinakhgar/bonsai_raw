@@ -2,8 +2,8 @@
 
 namespace App\Controller\User;
 use App\Controller\_Controller;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 class AuthController extends _Controller
 {
@@ -13,9 +13,9 @@ class AuthController extends _Controller
     }
 
 
-    public function post_create(Request $request , Response $response )
+    public function post_create(Request $request , Response $response , $args )
     {
-
+        dd($request->getParams());
     }
 
 }
