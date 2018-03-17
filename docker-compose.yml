@@ -1,20 +1,23 @@
-version: '3'
+version: '2'
 services:
   mysql:
     image: mariadb:latest
+    container_name: db
     volumes:
       - "./.docker/.data/db:/var/lib/mysql"
-      - "./.docker/data/import.sh:/tmp/import.sh"
+#     - "./.docker/data/import.sh:/tmp/import.sh"
+      - ./.docker/data/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
     ports:
       - "4444:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: bonsai
+      MYSQL_DATABASE: bonsai2
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    command: mysqld --user=root --verbose
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
+
     env_file:
       - ".env"
   redis:
@@ -38,6 +41,7 @@ services:
     restart: always
     command: "php bonsai migrate"
   nginx:
+    container_name: web
     depends_on:
       - phpfpm
     ports:
@@ -54,9 +58,3 @@ services:
     command: install
     volumes:
       - .:/var/www/html/
-  cli:
-    build:
-      context: '.'
-      dockerfile: "./.docker/app/DockerFile"
-    volumes:
-      - ./:/var/www/html/
