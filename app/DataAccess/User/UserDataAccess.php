@@ -24,6 +24,13 @@ class UserDataAccess extends AbstractDataAccess
 	}
 
 
+    public function getUserWithUsername(string $username)
+    {
+        return User::where('username', $username)
+            ->first();
+    }
+
+
 	public function getUserLoginFieldWithToken(string $loginField , string $token)
 	{
 		return User::where('api_token',$token)

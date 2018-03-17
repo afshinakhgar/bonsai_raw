@@ -10,7 +10,13 @@ namespace App\Controller;
 
 use Kernel\Abstracts\AbstractController;
 use Psr\Container\ContainerInterface;
+/**
+ * Class Controller
+ *
+ * @package App\Controller
+ * @property \App\DataAccess\User\UserDataAccess CategoryDataAccess
 
+ */
 class _Controller extends AbstractController
 {
 

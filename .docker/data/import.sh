@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-mysql -u root -p root < ./.docker/data/init.sql
+php bonsai migrate
+php bonsai seed

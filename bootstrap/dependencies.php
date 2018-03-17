@@ -70,9 +70,9 @@ $container['validator'] = function ($container) {
 };
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
-$container['validator'] = function ($container) {
+$container['filesystem'] = function ($container) {
 
-    $filesystem = $container['settings']['filesystem'] ?? __DIR__.'/storage';
+    $filesystem = $container['settings']['filesystem'] ?? __DIR__.'/../storage';
 
     $adapter = new Local($filesystem);
     $filesystem = new Filesystem($adapter);
@@ -130,13 +130,12 @@ if($filesInServices){
     }
 }
 
-
-$filesInServices = $Directory->scan(__APP_ROOT__.'/kernel/Services/');
-if($filesInServices){
-	foreach($filesInServices as $service){
-		$content = preg_replace('/.php/','',$service);
-		$container['Kernel_'.$content] = function () use ($container , $content){
-			$class =  '\\Kernel\\Services\\'.$content ;
+$filesInServicesKernel = $Directory->scan(__APP_ROOT__.'/kernel/Services/');
+if($filesInServicesKernel){
+	foreach($filesInServicesKernel as $serviceKernel){
+		$contentKernel = preg_replace('/.php/','',$serviceKernel);
+		$container['Kernel_'.$contentKernel] = function () use ($container , $contentKernel){
+			$class =  '\\Kernel\\Services\\'.$contentKernel ;
 			return new $class($container);
 		};
 	}
@@ -145,16 +144,16 @@ if($filesInServices){
 
 
 $filesInHelpers = $Directory->scan(__APP_ROOT__.'/kernel/Helpers/');
-if($filesInServices){
-    foreach($filesInServices as $service){
-        $contentHelper = preg_replace('/.php/','',$service);
-        $container[$contentHelper] = function () use ($contentHelper){
+
+if($filesInHelpers){
+    foreach($filesInHelpers as $helper){
+        $contentHelper = preg_replace('/.php/','',$helper);
+        $container[$contentHelper] = function ($container) use ($contentHelper){
             $class =  '\\Kernel\\Helpers\\'.$contentHelper ;
-            return new $class();
+            return new $class($container);
         };
     }
 }
-
 // data access container
 $dataAccessFiles = $Directory->listFolderFiles(__APP_ROOT__.'/app/DataAccess/');
 
