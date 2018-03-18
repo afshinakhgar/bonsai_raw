@@ -19,17 +19,14 @@ class AuthController extends _Controller
     public function post_create(Request $request , Response $response , $args )
     {
 //        $a = $this->Kernel_RequestService->post_apiCall(route('api.register'));
-        $this->validator->validate($request,[
-            'firstname' => v::noWhitespace()->notEmpty()->alpha(),
-            'lastname' => v::noWhitespace()->notEmpty()->alpha(),
-            'username' => v::noWhitespace()->notEmpty(),
-            'mobile' => v::noWhitespace()->notEmpty(),
-            'email' => v::noWhitespace()->notEmpty(),
-        ]);
 
+        $this->validator->validate($request,[
+            'username' => v::noWhitespace()->notEmpty(),
+        ]);
         if (!$this->validator->isValid()) {
             $this->flash->addMessage('200',$this->validator->getErrors());
-            return $response->withStatus(200)->withHeader('Location', route());
+
+            return $response->withRedirect('/');
         }
         if($this->validator->isValid()){
 

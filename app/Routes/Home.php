@@ -7,3 +7,4 @@
 //    return $response;
 //});
 //
+$route->get('/', \App\Controller\HomeController::class . ':index')->setName('home');

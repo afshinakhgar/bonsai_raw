@@ -21,20 +21,31 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12 form-group">
+                            <div class="col-sm-6 form-group">
                                 <label>{{trans('auth.register.password')}}</label>
                                 <input name="password" type="password" placeholder="{{trans('auth.register.password')}}" class="form-control">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>{{trans('auth.register.repass')}}</label>
+                                <input name="password" type="password" placeholder="{{trans('auth.register.repass')}}" class="form-control">
                             </div>
 
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 form-group">
+                            <div class="col-sm-12 form-group">
                                 <label>{{trans('auth.register.mobile_number')}}</label>
                                 <input name="mobile" type="text" placeholder="{{trans('auth.register.mobile_number')}}" class="form-control">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>{{trans('auth.register.email')}}</label>
                                 <input name="email" type="email" placeholder="{{trans('auth.register.email')}}" class="form-control">
+                            </div>
+
+                            <div class="col-sm-6 form-group">
+                                <label>{{trans('auth.register.username')}}</label>
+                                <input name="username" type="text" placeholder="{{trans('auth.register.username')}}" class="form-control">
                             </div>
                         </div>
                         <input type="submit" class="btn btn-lg btn-info" value="{{trans('auth.register.submit')}}">

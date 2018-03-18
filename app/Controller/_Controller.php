@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
  * Class Controller
  *
  * @package App\Controller
- * @property \App\DataAccess\User\UserDataAccess CategoryDataAccess
+ * @property \App\DataAccess\User\UserDataAccess UserDataAccess
 
  */
 class _Controller extends AbstractController
