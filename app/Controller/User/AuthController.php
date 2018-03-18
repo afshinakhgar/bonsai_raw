@@ -19,7 +19,6 @@ class AuthController extends _Controller
     public function post_create(Request $request , Response $response , $args )
     {
 //        $a = $this->Kernel_RequestService->post_apiCall(route('api.register'));
-
         $this->validator->validate($request,[
             'username' => v::noWhitespace()->notEmpty(),
         ]);
@@ -59,5 +58,6 @@ class AuthController extends _Controller
         }
 
     }
+
 
 }

@@ -19,10 +19,15 @@ if(!function_exists('trans')){
 
 
 
-function route(string $name ,array $params = [])
+function route(string $name ,array $params = [],$abs = false)
 {
     $url = new \Kernel\Helpers\UrlHelper($GLOBALS['container']);
-    return $url->get($name , $params);
+    $base = '';
+    if($abs){
+        $base = $url->getBasePath($GLOBALS['container']->request);
+    }
+
+    return $base.$url->get($name , $params);
 }
 
 function public_path(string $uri = '') {

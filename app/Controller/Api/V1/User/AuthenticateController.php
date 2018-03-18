@@ -76,15 +76,31 @@ class AuthenticateController extends _Controller
                 'username' => v::noWhitespace()->notEmpty(),
                 'password' => v::noWhitespace()->notEmpty(),
             ]);
-            if (!$this->validator->isValid()) {
-                return $this->badRequest($response, $this->validator->getErrors());
-            }
+
             $username = $request->getHeader('username')[0];
             $password = $request->getHeader('password')[0];
             $repass = $request->getHeader('repass')[0];
             $email = $request->getParams('email');
-            $first_name = $request->getParams('first_name');
-            $last_name = $request->getParams('first_name');
+            $mobile = $request->getParams('mobile');
+            $first_name = $request->getParams('first_name') ?? '';
+            $last_name = $request->getParams('first_name') ?? '';
+
+
+            $usernameExistsCheck = $this->UserDataAccess->getUserLoginField($username);
+            $emailExistsCheck = $this->UserDataAccess->getUserLoginField($email);
+            $mobileExistsCheck = $this->UserDataAccess->getUserLoginField($mobile);
+            if($mobileExistsCheck->id || $emailExistsCheck->id || $mobileExistsCheck->id){
+                return $this->badRequest($response, [
+                    'message'=>[
+                        'userexists'=>'user email | username | mobile is exists',
+                    ],
+                    'code'=>'404'
+                ]);
+            }
+
+            if (!$this->validator->isValid()) {
+                return $this->badRequest($response, $this->validator->getErrors());
+            }
 
             $authenticationModel = new AuthenticateSerializer($this->container);
             $authenticationModel->first_name = $first_name;
@@ -93,6 +109,7 @@ class AuthenticateController extends _Controller
             $authenticationModel->username = $username;
             $authenticationModel->email = $email;
             $authenticationModel->first_name = $username;
+            $authenticationModel->mobile = $mobile;
 
             $user = $this->UserDataAccess->createUser($authenticationModel);
             $collection = (new Collection($user, new AuthenticateSerializer($this->container)));
