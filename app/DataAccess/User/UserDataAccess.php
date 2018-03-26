@@ -74,6 +74,7 @@ class UserDataAccess extends AbstractDataAccess
         $user->first_name = $userObj->first_name;
         $user->last_name = $userObj->last_name;
         $user->mobile = $userObj->mobile;
+        $user->email = $userObj->email;
         $user->api_token = $userObj->api_token;
         $user->password = $userObj->password;
         $user->save();

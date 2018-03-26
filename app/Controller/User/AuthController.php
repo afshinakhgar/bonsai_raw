@@ -33,17 +33,17 @@ class AuthController extends _Controller
             $userOne = $this->UserDataAccess->getUserLoginField($params['email']);
 
             if(!isset($userOne->id)){
-                $user = new User();
+                $user = new \stdClass();
                 $hash = new HashHelper();
                 $user->first_name = $request->getParam('firstname');
                 $user->last_name = $request->getParam('lastname');
-                $user->mobile = $request->getParam('username');
+                $user->mobile = $request->getParam('mobile');
+                $user->email = $request->getParam('email');
                 $user->api_token = $hash->hash($request->getParam('username'));
                 // not two step
 
                 $user->password = $hash->hash($request->getParam('password'));
-
-                $user->save();
+                $this->UserDataAccess->createUser($user);
                 $this->flash->addMessage('info','You have been signed up');
                 return $response->withRedirect('/');
             }else{
