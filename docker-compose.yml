@@ -1,8 +1,5 @@
 version: '2'
 services:
-  myapp:
-    image: alpine:latest
-    entrypoint: /bin/sh
   mysql:
     image: mariadb:latest
     container_name: db
@@ -76,24 +73,5 @@ services:
       - "./.docker/config/php-fpm/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
       - "./.docker/config/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf"
     restart: 'no'
-    command: "php bonsai migrate"
+    command: "php bonsai init"
     tty: true
-  phpfpm-app-run2:
-#    image: php:7.1-fpm-alpine
-    build:
-      context: '.'
-      dockerfile: .docker/config/php-fpm/Dockerfile
-    depends_on:
-      - mysql
-      - redis
-      - phpfpm-app-run
-    volumes:
-      - "./:/var/www/html"
-      - "./.docker/config/php-fpm/php.ini:/usr/local/etc/php/php.ini"
-      - "./.docker/config/php-fpm/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
-      - "./.docker/config/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf"
-    restart: 'no'
-    command: "php bonsai seed"
-    tty: true
-    read_only: false
-    privileged: true
