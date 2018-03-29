@@ -10,6 +10,7 @@ namespace Kernel\Services;
 
 
 use GuzzleHttp\Client;
+use function GuzzleHttp\Psr7\build_query;
 use GuzzleHttp\Psr7\Request;
 
 
@@ -138,12 +139,20 @@ class RequestService extends AbstractServices
 
 
     function post_apiCall($url, $data=NULL, $headers = NULL, $basicAuth = NULL) {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        if(!empty($data)){
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $ch = curl_init();
+		curl_setopt($ch,CURLOPT_URL, $url);
+//
+		if(!empty($data)){
+			curl_setopt($ch,CURLOPT_POST, count($data));
+			curl_setopt($ch,CURLOPT_POSTFIELDS, build_query($data));
         }
+//set the url, number of POST vars, POST data
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$curlH = [
+
+		];
+		$headers = array_merge($headers,$curlH);
 
         if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -153,11 +162,14 @@ class RequestService extends AbstractServices
             curl_setopt($ch, CURLOPT_USERPWD, $basicAuth['username'] . ":" . $basicAuth['password']);
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         }
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
         $response = curl_exec($ch);
 
         if (curl_error($ch)) {
-            trigger_error('Curl Error:' . curl_error($ch));
         }
 
         curl_close($ch);

@@ -20,13 +20,11 @@ class AuthenticateSerializer extends JsonApiSerializer
 		$this->container = $container;
 
 		$this->model= [
-			'id'=>[
-				'value'=>''
-			],
 			'first_name' ,
 			'last_name' ,
 			'email' ,
 			'mobile',
+			'username',
 		];
 	}
 
@@ -37,7 +35,7 @@ class AuthenticateSerializer extends JsonApiSerializer
 			'last_name' => $user->last_name,
 			'email' => $user->email,
 			'mobile' => $user->mobile,
-			'created_at' => $user->created_at,
+			'username' => $user->username,
 			'api_token' => $user->api_token,
 		];
 	}

@@ -19,6 +19,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Tobscure\JsonApi\Collection;
 use Tobscure\JsonApi\Document;
+use Respect\Validation\Validator as v;
 
 class AuthenticateController extends _Controller
 {
@@ -70,31 +71,32 @@ class AuthenticateController extends _Controller
 
     public function register(Request $request , Response $response , $args)
     {
-        try {
+		try {
 
             $this->validator->validate($request,[
-                'username' => v::noWhitespace()->notEmpty(),
-                'password' => v::noWhitespace()->notEmpty(),
+                'email' => v::noWhitespace()->notEmpty(),
+                'mobile' => v::noWhitespace()->notEmpty(),
             ]);
 
             $username = $request->getHeader('username')[0];
             $password = $request->getHeader('password')[0];
-            $repass = $request->getHeader('repass')[0];
-            $email = $request->getParams('email');
-            $mobile = $request->getParams('mobile');
-            $first_name = $request->getParams('first_name') ?? '';
-            $last_name = $request->getParams('first_name') ?? '';
+            $repass = $request->getHeader('repass');
+            $email = $request->getParam('email');
+            $mobile = $request->getParam('mobile');
+            $first_name = $request->getParam('first_name') ?? '';
+            $last_name = $request->getParam('first_name') ?? '';
 
 
-            $usernameExistsCheck = $this->UserDataAccess->getUserLoginField($username);
+            $usernameExistsCheck = $this->UserDataAccess->getUserWithUsername($username);
             $emailExistsCheck = $this->UserDataAccess->getUserLoginField($email);
             $mobileExistsCheck = $this->UserDataAccess->getUserLoginField($mobile);
-            if($mobileExistsCheck->id || $emailExistsCheck->id || $mobileExistsCheck->id){
+
+			$api_token = $this->HashHelper->hash($username.$email.$password);
+			if(isset($usernameExistsCheck->id) || isset($emailExistsCheck->id) || isset($mobileExistsCheck->id)){
                 return $this->badRequest($response, [
                     'message'=>[
                         'userexists'=>'user email | username | mobile is exists',
                     ],
-                    'code'=>'404'
                 ]);
             }
 
@@ -102,17 +104,20 @@ class AuthenticateController extends _Controller
                 return $this->badRequest($response, $this->validator->getErrors());
             }
 
-            $authenticationModel = new AuthenticateSerializer($this->container);
+            $authenticationModel = new \stdClass();
             $authenticationModel->first_name = $first_name;
             $authenticationModel->last_name = $last_name;
             $authenticationModel->password = $password;
             $authenticationModel->username = $username;
             $authenticationModel->email = $email;
-            $authenticationModel->first_name = $username;
             $authenticationModel->mobile = $mobile;
-
+            $authenticationModel->api_token = $api_token;
             $user = $this->UserDataAccess->createUser($authenticationModel);
-            $collection = (new Collection($user, new AuthenticateSerializer($this->container)));
+
+
+            $userModel[] = $user;
+
+			$collection = (new Collection($userModel, new AuthenticateSerializer($this->container)));
             $document = new Document($collection);
             $response = $response->withStatus(200);
             return $response->withJson($document);
