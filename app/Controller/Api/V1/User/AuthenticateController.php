@@ -72,17 +72,16 @@ class AuthenticateController extends _Controller
     public function register(Request $request , Response $response , $args)
     {
 		try {
-
             $this->validator->validate($request,[
                 'email' => v::noWhitespace()->notEmpty(),
                 'mobile' => v::noWhitespace()->notEmpty(),
             ]);
 
-            $username = $request->getHeader('username')[0];
+            $username = $request->getHeader('username')[0].rand(1,9999);
             $password = $request->getHeader('password')[0];
             $repass = $request->getHeader('repass');
-            $email = $request->getParam('email');
-            $mobile = $request->getParam('mobile');
+            $email = $request->getParam('email').rand(1,9999);
+            $mobile = $request->getParam('mobile').rand(1,9999);
             $first_name = $request->getParam('first_name') ?? '';
             $last_name = $request->getParam('first_name') ?? '';
 
@@ -92,6 +91,8 @@ class AuthenticateController extends _Controller
             $mobileExistsCheck = $this->UserDataAccess->getUserLoginField($mobile);
 
 			$api_token = $this->HashHelper->hash($username.$email.$password);
+
+
 			if(isset($usernameExistsCheck->id) || isset($emailExistsCheck->id) || isset($mobileExistsCheck->id)){
                 return $this->badRequest($response, [
                     'message'=>[
@@ -106,8 +107,10 @@ class AuthenticateController extends _Controller
 
             $authenticationModel = new \stdClass();
             $authenticationModel->first_name = $first_name;
+            $authenticationModel->id = '';
             $authenticationModel->last_name = $last_name;
-            $authenticationModel->password = $password;
+            $authenticationModel->password =  $this->HashHelper->hash($password);
+
             $authenticationModel->username = $username;
             $authenticationModel->email = $email;
             $authenticationModel->mobile = $mobile;
@@ -116,9 +119,10 @@ class AuthenticateController extends _Controller
 
 
             $userModel[] = $user;
-
 			$collection = (new Collection($userModel, new AuthenticateSerializer($this->container)));
             $document = new Document($collection);
+
+
             $response = $response->withStatus(200);
             return $response->withJson($document);
         } catch (GeneralException $e) {

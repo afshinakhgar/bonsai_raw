@@ -19,28 +19,31 @@ class AuthController extends _Controller
     public function post_create(Request $request , Response $response , $args )
     {
 
-//		$params = $request->getParams();
-//		$data = $this->Kernel_RequestService->post_apiCall(
-//		'http://localhost:8002/api/v1/user/authenticate/register',
-//			$params,
-//			[
-//				"cache-control: no-cache",
-//				'Content-Type: application/x-www-form-urlencoded',
-//				'username: '.$params['username'],
-//				'password: '.$params['password'],
-//			]
-//			,null);
-//
-//		$dataa = json_decode($data);
-//		var_dump($dataa);exit;
-//		$errors = '';
-//		if($dataa['error']['messages']){
-//			$errors = $dataa['error']['messages'];
-//			$this->flash->addMessage('error',$errors);
-//		}else{
-//			$this->flash->addMessage('info','You have been signed up');
-//
-//		}
+		$params = $request->getParams();
+		$data = $this->Kernel_RequestService->post_apiCall(
+			route('api.register',[],true),
+			$params,
+			[
+				"cache-control: no-cache",
+				'Content-Type: application/x-www-form-urlencoded',
+				'username: '.$params['username'],
+				'password: '.$params['password'],
+			]
+			);
+
+		$dataa = json_decode($data,true);
+		$errors = '';
+		if(isset($dataa['error']['messages'])){
+			$errors = $dataa['error']['messages'];
+			$this->flash->addMessage('error',$errors);
+		}else{
+
+			var_dump($dataa['data'][0]['attributes']);exit;
+
+
+			$this->flash->addMessage('info','You have been signed up');
+
+		}
 
 
 		return $response->withRedirect('/');

@@ -139,6 +139,11 @@ class RequestService extends AbstractServices
 
 
     function post_apiCall($url, $data=NULL, $headers = NULL, $basicAuth = NULL) {
+        return $this->post_curl($url, $data=NULL, $headers = NULL, $basicAuth = NULL);
+    }
+
+
+    function post_curl($url, $data=NULL, $headers = NULL, $basicAuth = NULL) {
         $ch = curl_init();
 		curl_setopt($ch,CURLOPT_URL, $url);
 //
@@ -165,7 +170,7 @@ class RequestService extends AbstractServices
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_VERBOSE, 1);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 
         $response = curl_exec($ch);
 
