@@ -77,29 +77,16 @@ class AuthenticateController extends _Controller
                 'mobile' => v::noWhitespace()->notEmpty(),
             ]);
 
-            $username = $request->getHeader('username')[0].rand(1,9999);
+            $username = $request->getHeader('username')[0];
             $password = $request->getHeader('password')[0];
-            $repass = $request->getHeader('repass');
-            $email = $request->getParam('email').rand(1,9999);
-            $mobile = $request->getParam('mobile').rand(1,9999);
+            $repass = $request->getHeader('repass')[0];
+            $email = $request->getParam('email');
+            $mobile = $request->getParam('mobile');
             $first_name = $request->getParam('first_name') ?? '';
             $last_name = $request->getParam('first_name') ?? '';
 
 
-            $usernameExistsCheck = $this->UserDataAccess->getUserWithUsername($username);
-            $emailExistsCheck = $this->UserDataAccess->getUserLoginField($email);
-            $mobileExistsCheck = $this->UserDataAccess->getUserLoginField($mobile);
 
-			$api_token = $this->HashHelper->hash($username.$email.$password);
-
-
-			if(isset($usernameExistsCheck->id) || isset($emailExistsCheck->id) || isset($mobileExistsCheck->id)){
-                return $this->badRequest($response, [
-                    'message'=>[
-                        'userexists'=>'user email | username | mobile is exists',
-                    ],
-                ]);
-            }
 
             if (!$this->validator->isValid()) {
                 return $this->badRequest($response, $this->validator->getErrors());
@@ -109,15 +96,20 @@ class AuthenticateController extends _Controller
             $authenticationModel->first_name = $first_name;
             $authenticationModel->id = '';
             $authenticationModel->last_name = $last_name;
-            $authenticationModel->password =  $this->HashHelper->hash($password);
+            $authenticationModel->password =  $password;
 
-            $authenticationModel->username = $username;
-            $authenticationModel->email = $email;
-            $authenticationModel->mobile = $mobile;
-            $authenticationModel->api_token = $api_token;
-            $user = $this->UserDataAccess->createUser($authenticationModel);
+            $authenticationModel->username = $username.rand(1,9999);
+            $authenticationModel->email = $email.rand(1,9999);
+            $authenticationModel->mobile = $mobile.rand(1,9999);
+            $authenticationModel->repass = $repass;
 
 
+
+            $user = Auth::register($authenticationModel);
+
+            if(is_array($user)  && $user['data']['type'] == 'error'){
+				return $this->badRequest($response, $user);
+			}
             $userModel[] = $user;
 			$collection = (new Collection($userModel, new AuthenticateSerializer($this->container)));
             $document = new Document($collection);

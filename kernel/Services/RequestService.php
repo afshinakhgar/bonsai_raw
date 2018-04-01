@@ -152,12 +152,7 @@ class RequestService extends AbstractServices
 			curl_setopt($ch,CURLOPT_POSTFIELDS, build_query($data));
         }
 //set the url, number of POST vars, POST data
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-		$curlH = [
-
-		];
-		$headers = array_merge($headers,$curlH);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
 
         if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -175,6 +170,7 @@ class RequestService extends AbstractServices
         $response = curl_exec($ch);
 
         if (curl_error($ch)) {
+        	return 'error!'. 'error:' . curl_error($ch);
         }
 
         curl_close($ch);

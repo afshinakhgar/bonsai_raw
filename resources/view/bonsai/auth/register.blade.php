@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>{{trans('auth.register.repass')}}</label>
-                                <input name="password" type="password" placeholder="{{trans('auth.register.repass')}}" class="form-control">
+                                <input name="repass" type="password" placeholder="{{trans('auth.register.repass')}}" class="form-control">
                             </div>
 
                         </div>
