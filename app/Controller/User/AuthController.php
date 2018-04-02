@@ -55,6 +55,29 @@ class AuthController extends _Controller
         }
 	}
 
+
+
+	public function get_login(Request $request , Response $response , $args)
+	{
+		if(Auth::check()){
+			return $response->withRedirect('/');
+		}
+		return $this->view->render($response, 'auth.login');
+
+	}
+
+
+	public function post_login(Request $request , Response $response , $args)
+	{
+		dd($request->getParams());
+
+
+
+		return $this->view->render($response, 'auth.login');
+
+	}
+
+
 //    public function post_create(Request $request , Response $response , $args )
 //    {
 //

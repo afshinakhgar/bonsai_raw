@@ -67,4 +67,57 @@ trait AuthTrait
 
 	}
 
+
+
+	public function login(string $loginField ,string $password)
+	{
+		$user = $this->UserDataAccess->getUserLoginField($loginField);
+		if (!$user) {
+			return [
+				'data' => [
+					'type'=>'error',
+					'message'=> 'User Not Exists',
+				]
+			];
+		}else {
+			if ($this->checkPass($password,$user->password)) {
+
+				$_SESSION['user']['user_id'] = $user->id;
+				$_SESSION['user']['mobile'] = $user->mobile;
+				$_SESSION['user']['username'] = $user->username;
+				$_SESSION['user']['api_token'] = $user->api_token;
+
+				setcookie('user', json_encode([
+					'user_id'=>$user->id,
+					'mobile'=>$user->mobile,
+					'username'=>$user->username,
+				]), time() + (86400 * 30), "/"); // 86400 = 1 day *30 => 30 day
+				return [
+					'data' => [
+						'type'=>'success',
+						'message'=> 'وارد شدید',
+					]
+				];
+			} else {
+				return [
+					'data' => [
+						'type'=>'error',
+						'message'=> 'password mismatch',
+					]
+				];
+			}
+		}
+	}
+
+
+
+	public function checkPass($password,$database_pass)
+	{
+		if($database_pass == $password){
+			return true;
+		}
+		return false;
+
+	}
+
 }
