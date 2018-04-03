@@ -4,9 +4,11 @@ namespace Kernel\Services;
 
 
 use Kernel\Abstracts\AbstractServices;
+use Kernel\Traits\AuthTrait;
 
 class AuthService extends AbstractServices
 {
+	use AuthTrait;
 	public function loginByPassword($login_field,$password)
 	{
 		$auth =  $this->UserDataAccess->getUserLoginFieldWithPassword($login_field,$password);
@@ -54,5 +56,11 @@ class AuthService extends AbstractServices
 			$_SESSION['user'] = json_decode($_COOKIE['user'],true);
 		}
 		return isset($_SESSION['user']['user_id']);
+	}
+
+
+	public function register($inputObj)
+	{
+		return $this->createUser($inputObj);
 	}
 }

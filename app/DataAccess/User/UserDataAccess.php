@@ -73,10 +73,14 @@ class UserDataAccess extends AbstractDataAccess
         $user = new User();
         $user->first_name = $userObj->first_name;
         $user->last_name = $userObj->last_name;
+        $user->username = $userObj->username;
         $user->mobile = $userObj->mobile;
         $user->email = $userObj->email;
         $user->api_token = $userObj->api_token;
         $user->password = $userObj->password;
         $user->save();
+
+
+        return $userObj;
 	}
 }

@@ -10,10 +10,10 @@ namespace Kernel\Services;
 
 
 use GuzzleHttp\Client;
+use function GuzzleHttp\Psr7\build_query;
 use GuzzleHttp\Psr7\Request;
 
 
-use GuzzleHttp\Psr7\Response;
 use Kernel\Abstracts\AbstractServices;
 
 class RequestService extends AbstractServices
@@ -61,23 +61,30 @@ class RequestService extends AbstractServices
     }
 
 
-    public function psr7Request($url ,$payload,$headers, $method = 'get')
+    public function psr7Request($url , $method = 'get')
     {
-        $method = strtolower($method);
-        $client = new Client([
-            'base_uri' => $url,
-        ]);
-        $response = $client->$method($url, [
-            'debug' => TRUE,
-            'body' => $payload,
-            'headers' => [
-                'Content-Type' => 'application/x-www-form-urlencoded',
-                $headers
-            ]
-        ]);
-        $body = $response->getBody();
+        if(!in_array($method,$this->allowedMethods)){
+            return false;
+        }
+        $request = new Request($method, $url);
 
-        return $body;
+        $code = $request->getStatusCode(); // 200
+        $reason = $request->getReasonPhrase(); // OK
+        $body = $request->getBody(getBody);
+
+        foreach ($request->getHeaders() as $name => $values) {
+            $headers[$name] = $values;
+        }
+
+
+
+        return [
+            'code' => $code,
+            'reason' => $reason,
+            'body' => $body,
+        ];
+
+
     }
 
 
@@ -131,22 +138,21 @@ class RequestService extends AbstractServices
     }
 
 
-    /**
-     * @param $url
-     * @param null $data
-     * @param null $headers
-     * @param null $basicAuth
-     * @return mixed
-     */
-
     function post_apiCall($url, $data=NULL, $headers = NULL, $basicAuth = NULL) {
+        return $this->post_curl($url, $data=NULL, $headers = NULL, $basicAuth = NULL);
+    }
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        if(!empty($data)){
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    function post_curl($url, $data=NULL, $headers = NULL, $basicAuth = NULL) {
+        $ch = curl_init();
+		curl_setopt($ch,CURLOPT_URL, $url);
+//
+		if(!empty($data)){
+			curl_setopt($ch,CURLOPT_POST, count($data));
+			curl_setopt($ch,CURLOPT_POSTFIELDS, build_query($data));
         }
+//set the url, number of POST vars, POST data
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
 
         if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -156,12 +162,15 @@ class RequestService extends AbstractServices
             curl_setopt($ch, CURLOPT_USERPWD, $basicAuth['username'] . ":" . $basicAuth['password']);
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         }
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 
         $response = curl_exec($ch);
 
         if (curl_error($ch)) {
-            dd(curl_error($ch));
-//            throw Exception ('Curl Error:' . curl_error($ch));
+        	return 'error!'. 'error:' . curl_error($ch);
         }
 
         curl_close($ch);
