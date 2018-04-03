@@ -29,32 +29,27 @@ class AuthController extends _Controller
         }
         if($this->validator->isValid()){
 
-            $params = $request->getParams();
-            $userOne = $this->UserDataAccess->getUserLoginField($params['email']);
+            $data = $this->Kernel_RequestService->psr7Request(
+                'http://localhost:8001/api/v1/user/auhtenticate/register',
+                \GuzzleHttp\json_encode([
+                    'firs_tname' => $request->getParam('first_name'),
+                    'last_name' => $request->getParam('last_name'),
+                    'mobile' => $request->getParam('mobile'),
+                    'email' => $request->getParam('email'),
+                ]),
+                [
+                    'username : ' . $request->getParam('username'),
+                    'password : '. $request->getParam('password'),
+                ]
+            );
+            dd($data);
+            $this->flash->addMessage('info','You have been signed up');
+//            return $response->withRedirect('/');
 
-            if(!isset($userOne->id)){
-                $user = new \stdClass();
-                $hash = new HashHelper();
-                $user->first_name = $request->getParam('firstname');
-                $user->last_name = $request->getParam('lastname');
-                $user->mobile = $request->getParam('mobile');
-                $user->email = $request->getParam('email');
-                $user->api_token = $hash->hash($request->getParam('username'));
-                // not two step
-
-                $user->password = $hash->hash($request->getParam('password'));
-                $this->UserDataAccess->createUser($user);
-                $this->flash->addMessage('info','You have been signed up');
-                return $response->withRedirect('/');
-            }else{
-                $this->flash->addMessage('error','User Already exist');
-
-                return $response->withRedirect('/');
-            }
 
         }else{
             $this->flash->addMessage('error','Invalid Inputs');
-            return $response->withRedirect('/');
+//            return $response->withRedirect('/');
         }
 
     }

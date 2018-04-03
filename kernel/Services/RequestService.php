@@ -13,6 +13,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
 
+use GuzzleHttp\Psr7\Response;
 use Kernel\Abstracts\AbstractServices;
 
 class RequestService extends AbstractServices
@@ -60,30 +61,23 @@ class RequestService extends AbstractServices
     }
 
 
-    public function psr7Request($url , $method = 'get')
+    public function psr7Request($url ,$payload,$headers, $method = 'get')
     {
-        if(!in_array($method,$this->allowedMethods)){
-            return false;
-        }
-        $request = new Request($method, $url);
+        $method = strtolower($method);
+        $client = new Client([
+            'base_uri' => $url,
+        ]);
+        $response = $client->$method($url, [
+            'debug' => TRUE,
+            'body' => $payload,
+            'headers' => [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                $headers
+            ]
+        ]);
+        $body = $response->getBody();
 
-        $code = $request->getStatusCode(); // 200
-        $reason = $request->getReasonPhrase(); // OK
-        $body = $request->getBody(getBody);
-
-        foreach ($request->getHeaders() as $name => $values) {
-            $headers[$name] = $values;
-        }
-
-
-
-        return [
-            'code' => $code,
-            'reason' => $reason,
-            'body' => $body,
-        ];
-
-
+        return $body;
     }
 
 
@@ -137,7 +131,16 @@ class RequestService extends AbstractServices
     }
 
 
+    /**
+     * @param $url
+     * @param null $data
+     * @param null $headers
+     * @param null $basicAuth
+     * @return mixed
+     */
+
     function post_apiCall($url, $data=NULL, $headers = NULL, $basicAuth = NULL) {
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -157,7 +160,8 @@ class RequestService extends AbstractServices
         $response = curl_exec($ch);
 
         if (curl_error($ch)) {
-            trigger_error('Curl Error:' . curl_error($ch));
+            dd(curl_error($ch));
+//            throw Exception ('Curl Error:' . curl_error($ch));
         }
 
         curl_close($ch);
