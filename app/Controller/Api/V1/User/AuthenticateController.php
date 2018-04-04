@@ -32,18 +32,16 @@ class AuthenticateController extends _Controller
 	public function login(Request $request , Response $response , $args)
 	{
 		try {
-			$loginField = $request->getHeader('login')[0];
-			$token = $request->getHeader('token')[0];
 
-			if(!$token){
+            $loginField = $request->getHeader('login')[0] ?? '';
+			$token = $request->getHeader('token')[0] ?? '';
+			if(!$token || $token == ''){
 				$password = $request->getHeader('password')[0];
 			}else{
 				$user = Auth::loginByApiToken($loginField,$token);
-
 			}
 
-
-			if(!$user){
+			if(isset($password)){
 				$user = Auth::loginByPassword($loginField,HashHelper::hash($password));
 			}
 //            $this->validator->addError('username', 'User already exists with this username.');

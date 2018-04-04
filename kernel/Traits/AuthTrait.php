@@ -55,7 +55,7 @@ trait AuthTrait
 		$authenticationModel->first_name = $first_name;
 		$authenticationModel->id = '';
 		$authenticationModel->last_name = $last_name;
-		$authenticationModel->password =  $this->HashHelper->hash($password);
+		$authenticationModel->password =  $password;
 
 		$authenticationModel->username = $username;
 		$authenticationModel->email = $email;

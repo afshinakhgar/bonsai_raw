@@ -23,31 +23,25 @@ class AuthController extends _Controller
         if($this->validator->isValid()){
 
 
-            if(!isset($userOne->id)){
-                $user = new \stdClass();
-                $hash = new HashHelper();
-                $user->first_name = $request->getParam('first_name');
-                $user->last_name = $request->getParam('last_name');
-                $user->mobile = $request->getParam('mobile');
-                $user->email = $request->getParam('email');
-                $user->password = $request->getParam('password');
-                $user->repass = $request->getParam('repass');
-                $user->username = $request->getParam('username');
-                // not two step
+            $user = new \stdClass();
+            $user->first_name = $request->getParam('first_name');
+            $user->last_name = $request->getParam('last_name');
+            $user->mobile = $request->getParam('mobile');
+            $user->email = $request->getParam('email');
+            $user->password = $request->getParam('password');
+            $user->repass = $request->getParam('repass');
+            $user->username = $request->getParam('username');
+            // not two step
 
-				$userData = Auth::register($user);
-				if(is_array($userData)  && $userData['data']['type'] == 'error'){
-					$this->flash->addMessage('error','Signup Problem');
-					return $response->withRedirect('/user/register');
-				}
-
-                $this->flash->addMessage('info','You have been signed up');
-				return $response->withRedirect('/user/register');
-            }else{
-                $this->flash->addMessage('error','User Already exist');
-
-				return $response->withRedirect('/user/register');
+            $userData = Auth::register($user);
+            if(is_array($userData)  && $userData['data']['type'] == 'error'){
+                $this->flash->addMessage('error','Signup Problem');
+                return $response->withRedirect('/user/register');
             }
+
+            $this->flash->addMessage('info','You have been signed up');
+            return $response->withRedirect('/user/register');
+
 
         }else{
             $this->flash->addMessage('error','Invalid Inputs');
@@ -59,9 +53,9 @@ class AuthController extends _Controller
 
 	public function get_login(Request $request , Response $response , $args)
 	{
-		if(Auth::check()){
-			return $response->withRedirect('/');
-		}
+//		if(Auth::check()){
+//			return $response->withRedirect('/');
+//		}
 		return $this->view->render($response, 'auth.login');
 
 	}
@@ -69,8 +63,6 @@ class AuthController extends _Controller
 
 	public function post_login(Request $request , Response $response , $args)
 	{
-		dd($request->getParams());
-
 
 
 		return $this->view->render($response, 'auth.login');
