@@ -3,6 +3,8 @@
 namespace Kernel\Traits;
 
 
+use Kernel\Facades\Auth;
+
 trait AuthTrait
 {
 	function createUser($authenticationModel){
@@ -69,7 +71,7 @@ trait AuthTrait
 
 
 
-	public function login(string $loginField ,string $password)
+	public function login(string $loginField ,string $password , $type = 'basic')
 	{
 		$user = $this->UserDataAccess->getUserLoginField($loginField);
 		if (!$user) {
@@ -80,33 +82,53 @@ trait AuthTrait
 				]
 			];
 		}else {
-			if ($this->checkPass($password,$user->password)) {
+		    if($type == 'basic'){
+                if ($this->checkPass($password,$user->password)) {
 
-				$_SESSION['user']['user_id'] = $user->id;
-				$_SESSION['user']['mobile'] = $user->mobile;
-				$_SESSION['user']['username'] = $user->username;
-				$_SESSION['user']['api_token'] = $user->api_token;
 
-				setcookie('user', json_encode([
-					'user_id'=>$user->id,
-					'mobile'=>$user->mobile,
-					'username'=>$user->username,
-				]), time() + (86400 * 30), "/"); // 86400 = 1 day *30 => 30 day
-				return [
-					'data' => [
-						'type'=>'success',
-						'message'=> 'وارد شدید',
-					]
-				];
-			} else {
-				return [
-					'data' => [
-						'type'=>'error',
-						'message'=> 'password mismatch',
-					]
-				];
-			}
+                    return [
+                        'data' => [
+                            'type'=>'success',
+                            'message'=> 'وارد شدید',
+                        ]
+                    ];
+                } else {
+                    return [
+                        'data' => [
+                            'type'=>'error',
+                            'message'=> 'password mismatch',
+                        ]
+                    ];
+                }
+            } else if($type == 'token'){
+                $user = Auth::loginByApiToken($loginField,$password);
+
+                if($user->id){
+
+                    return [
+                        'data' => [
+                            'type'=>'success',
+                            'message'=> 'وارد شدید',
+                        ]
+                    ];
+                }else{
+                    return [
+                        'data' => [
+                            'type'=>'error',
+                            'message'=> 'password mismatch',
+                        ]
+                    ];
+                }
+
+
+            }
+
+            return $user;
+
 		}
+
+
+        return null;
 	}
 
 

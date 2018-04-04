@@ -63,4 +63,10 @@ class AuthService extends AbstractServices
 	{
 		return $this->createUser($inputObj);
 	}
+
+
+	public function login($inputObj){
+        return $this->loginUser($inputObj);
+
+    }
 }
