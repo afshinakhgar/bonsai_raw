@@ -65,21 +65,29 @@ class AuthController extends _Controller
 	{
 
 
+        $user =  Auth::login($request->getParams(),'basic');
+        if($user->id){
+            $_SESSION['user']['user_id'] = $user->id;
+            $_SESSION['user']['mobile'] = $user->mobile;
+            $_SESSION['user']['username'] = $user->username;
+            $_SESSION['user']['api_token'] = $user->api_token;
+
+            setcookie('user', json_encode([
+                'user_id'=>$user->id,
+                'mobile'=>$user->mobile,
+                'username'=>$user->username,
+            ]), time() + (86400 * 30), "/"); // 86400 = 1 day *30 => 30 day
 
 
-        $_SESSION['user']['user_id'] = $user->id;
-        $_SESSION['user']['mobile'] = $user->mobile;
-        $_SESSION['user']['username'] = $user->username;
-        $_SESSION['user']['api_token'] = $user->api_token;
-
-        setcookie('user', json_encode([
-            'user_id'=>$user->id,
-            'mobile'=>$user->mobile,
-            'username'=>$user->username,
-        ]), time() + (86400 * 30), "/"); // 86400 = 1 day *30 => 30 day
+            return $response->withRedirect('/');
 
 
-		return $this->view->render($response, 'auth.login');
+        }else{
+			return $response->withRedirect('/');
+        }
+
+
+
 
 	}
 
