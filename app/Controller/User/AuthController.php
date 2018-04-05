@@ -64,8 +64,7 @@ class AuthController extends _Controller
 	public function post_login(Request $request , Response $response , $args)
 	{
 
-
-        $user =  Auth::login($request->getParams(),'basic');
+        $user =  Auth::login($request->getParam('loginfield'),$request->getParam('password'),'basic');
         if($user->id){
             $_SESSION['user']['user_id'] = $user->id;
             $_SESSION['user']['mobile'] = $user->mobile;

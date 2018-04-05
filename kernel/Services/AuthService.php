@@ -120,7 +120,8 @@ class AuthService extends AbstractServices
 	}
 
 
-	public function login($loginField,$type = 'basic'){
+	public function login($loginField,$password,$type = 'basic'){
+
         $user = $this->UserDataAccess->getUserLoginField($loginField);
         if (!$user) {
             return [
@@ -131,8 +132,6 @@ class AuthService extends AbstractServices
             ];
         }else {
             if($type == 'basic'){
-                $password = $loginField['password'];
-
                 if ($this->checkPass($password,$user->password)) {
 
 
@@ -151,8 +150,6 @@ class AuthService extends AbstractServices
                     ];
                 }
             } else if($type == 'token'){
-                $password = $loginField['token'];
-
                 $user = Auth::loginByApiToken($loginField,$password);
 
                 if($user->id){
