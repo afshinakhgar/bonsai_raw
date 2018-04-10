@@ -65,16 +65,17 @@ class AuthController extends _Controller
 	{
 
         $user =  Auth::login($request->getParam('loginfield'),$request->getParam('password'),'basic');
-        if($user->id){
-            $_SESSION['user']['user_id'] = $user->id;
-            $_SESSION['user']['mobile'] = $user->mobile;
-            $_SESSION['user']['username'] = $user->username;
-            $_SESSION['user']['api_token'] = $user->api_token;
 
+        $userData = $user['data']['user'];
+        if($user['data']['type'] == 'success' && $user['data']['user'] &&  $userData->id){
+            $_SESSION['user']['user_id'] = $userData->id;
+            $_SESSION['user']['mobile'] = $userData->mobile;
+            $_SESSION['user']['username'] = $userData->username;
+            $_SESSION['user']['api_token'] = $userData->api_token;
             setcookie('user', json_encode([
-                'user_id'=>$user->id,
-                'mobile'=>$user->mobile,
-                'username'=>$user->username,
+                'user_id'=>$userData->id,
+                'mobile'=>$userData->mobile,
+                'username'=>$userData->username,
             ]), time() + (86400 * 30), "/"); // 86400 = 1 day *30 => 30 day
 
 

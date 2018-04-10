@@ -11,6 +11,6 @@ class HomeController extends _Controller
 
     public function index(Request $request, Response $response, $args)
     {
-        dd($_SESSION);
+        dd(Auth::check());
     }
 }

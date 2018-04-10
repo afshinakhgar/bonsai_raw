@@ -123,6 +123,9 @@ class AuthService extends AbstractServices
 	public function login($loginField,$password,$type = 'basic'){
 
         $user = $this->UserDataAccess->getUserLoginField($loginField);
+
+        $password = $this->HashHelper->hash($password);
+
         if (!$user) {
             return [
                 'data' => [
@@ -133,12 +136,11 @@ class AuthService extends AbstractServices
         }else {
             if($type == 'basic'){
                 if ($this->checkPass($password,$user->password)) {
-
-
                     return [
                         'data' => [
                             'type'=>'success',
                             'message'=> 'وارد شدید',
+                            'user' => $user
                         ]
                     ];
                 } else {
@@ -158,6 +160,7 @@ class AuthService extends AbstractServices
                         'data' => [
                             'type'=>'success',
                             'message'=> 'وارد شدید',
+                            'user'=>$user
                         ]
                     ];
                 }else{
