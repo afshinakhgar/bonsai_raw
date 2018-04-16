@@ -83,4 +83,9 @@ class UserDataAccess extends AbstractDataAccess
 
         return $userObj;
 	}
+
+    public static function getAllUsersPaging(int $limit = 20)
+    {
+        return User::paginate($limit);
+    }
 }
