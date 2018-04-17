@@ -3,39 +3,72 @@
 @section('content')
     <div class="container">
             <div class="row">
-                @if(isset($list))
-                    @foreach($list as $user)
 
-                    <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                        <div class="card">
-                            <div class="card-block">
-                                <h4 class="card-title"> {{$user->first_name}}  {{$user->last_name}}</h4>
-                                <div class="meta">
-                                     @foreach($user->roles as $role)
-                                      <i class="badge badge-warning">{{$role->display_name}}</i>
-                                     @endforeach
-                                </div>
-                                <div class="card-text">
-                                {{$user->created_at}}                       
-                                 </div>
+                <table id="admin_user_list"  class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>first name</th>
+                            <th>last name</th>
+                            <th>created at</th>
+                            <th>roles</th>
+                            <th>mobile</th>
+                            <th>username</th>
+                            <th>email</th>
+                        </tr>
+                    </thead>
 
-                                <span class="badge badge-info"><i ></i>{{$user->mobile}}</span>
-                                <span class="badge badge-info"><i ></i>{{$user->username}}</span>
-                            </div>
-                            <?php
-                            $userField = isset($user->username) && strlen($user->username)>0 ?  $user->username : $user->mobile;
-                            ?>
-                            <div class="card-footer">
+                    <tbody>
 
-                            </div>
-                        </div>
-                        </div>
+                    @if(isset($list))
+                        @foreach($list as $user)
+                            <tr>
+                                <td> {{$user->first_name}}  </td>
+                                <td>{{$user->last_name}}</td>
+                                <td>{{$user->created_at}}</td>
+                                <td> @foreach($user->roles as $role)
+                                        <i class="badge badge-warning">{{$role->display_name}}</i>
+                                    @endforeach</td>
+                                <td>{{$user->mobile}}</td>
+                                <td>{{$user->username}}</td>
+                                <td>{{$user->email}}</td>
+                            </tr>
+
                         @endforeach
                     @endif
+                    </tbody>
+
+                </table>
+
+
             </div>
         </div>  
     </div>  
 
     <br>
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('#admin_user_list').DataTable({
+                "ajax": "data/objects.txt",
+                "columns": [
+                    { "data": "name" },
+                    { "data": "position" },
+                    { "data": "office" },
+                    { "data": "extn" },
+                    { "data": "start_date" },
+                    { "data": "salary" }
+                ]
+            });
+        } );
+
+
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+    @include('admin.includes.widgets.data_table')
     
 @endsection
