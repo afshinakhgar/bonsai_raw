@@ -84,12 +84,12 @@ $container['filesystem'] = function ($container) {
 // Register Blade View helper
 $container['view'] = function ($container) {
     $messages = $container->flash->getMessages();
+    $viewSettings = $container['settings']['view'];
 
-    if(!is_dir('../app/View/cache')){
-        @mkdir('../app/View/cache');
+    if(!is_dir($viewSettings['blade_cache_path'])){
+        @mkdir($viewSettings['blade_cache_path']);
     }
 
-    $viewSettings = $container['settings']['view'];
     return new \Slim\Views\Blade(
         [$viewSettings['blade_template_path'].$viewSettings['template']],
         $viewSettings['blade_cache_path'],
