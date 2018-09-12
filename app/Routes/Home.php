@@ -8,3 +8,22 @@
 //});
 //
 $route->get('/', \App\Controller\HomeController::class . ':index')->setName('home');
+
+
+
+
+
+
+$app->get('/version', function ($request, $response, $args) {
+    $filepath = __APP_ROOT__ . '.buildnumber';
+    $data = file_get_contents($filepath);
+    if ($data){
+        $data_arr = json_decode($data);
+    }else{
+        $data_arr = [];
+    }
+    return $response->withJson($data_arr);
+});
+
+
+//Dynamic Routes
