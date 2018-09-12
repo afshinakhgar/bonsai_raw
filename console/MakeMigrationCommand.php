@@ -26,7 +26,7 @@ class MakeMigrationCommand extends AbstractConsole
                 'Migration name to Generate'
             )
 			->addOption(
-				'--table',
+				'table',
 				null,
 				InputOption::VALUE_OPTIONAL,
 				'table model'
@@ -42,7 +42,8 @@ class MakeMigrationCommand extends AbstractConsole
     {
         $names   = $input->getArgument('name');
         $column = $input->getArgument('column');
-        $map ="";
+
+                $map ="";
         $directory = 'database/migrations/';
         $file = file_get_contents("resources/command_templates/create_migration.txt");
         $explodedArrName = explode('_',$names);
@@ -63,9 +64,11 @@ class MakeMigrationCommand extends AbstractConsole
             $map    .= '$table->'.$type.'("'.$name.'");'."\n";
         }
         $file = str_replace("!table", $map, $file);
+        if($input->getOption('table') !== null){
+            $tableName = $input->getOption('table') ?? $name;
+            $file = str_replace("!table_name", $tableName, $file);
 
-        $tableName = $input->getOption('--table') ?? $name;
-        $file = str_replace("!table_name", $tableName, $file);
+        }
 
         $explodedArrName = explode('_',$names);
         $fileNameNew ='';
@@ -82,13 +85,13 @@ class MakeMigrationCommand extends AbstractConsole
             $output->writeln("Class migration already Exists!");
         }
 
-		if($input->getOption('--table'))
+		if($input->getOption('table') !== null)
 		{
 			$command = $this->getApplication()->find('make:model');
 
 			$arguments = array(
 				'command' => 'make:model',
-				'name'    => $input->getOption	('--table'),
+				'name'    => $input->getOption	('table'),
 			);
 
 			$greetInput = new ArrayInput($arguments);
