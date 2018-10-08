@@ -36,7 +36,10 @@
         "guzzlehttp/guzzle": "^6.3",
         "slim/http-cache": "^0.4.0",
         "league/flysystem": "^1.0",
-        "tuupola/slim-basic-auth": "^3.2"
+        "tuupola/slim-basic-auth": "^3.2",
+        "gregwar/image": "2.*",
+        "tuupola/slim-jwt-auth": "^3.1"
+
     },
     "autoload": {
         "psr-4": {

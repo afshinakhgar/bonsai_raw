@@ -84,8 +84,48 @@ class UserDataAccess extends AbstractDataAccess
         return $userObj;
 	}
 
-    public static function getAllUsersPaging(int $limit = 20)
+
+    public  function createUsersByFields(array $fields)
+    {
+
+        $user = new User;
+        foreach($fields as $field=>$value){
+            $user->$field = $value;
+        }
+
+        $user->save();
+
+        return $user;
+    }
+
+    public  function getAllUsersPaging(int $limit = 20)
     {
         return User::paginate($limit);
+    }
+
+
+
+    public  function updateuserFieldById($user,array $fields)
+    {
+        foreach($fields as $field=>$value){
+            $user->$field = $value;
+        }
+        $user->save();
+
+
+        return $user;
+    }
+
+    public  function attendStudy($user,array $data)
+    {
+        $user->attendStudy()->sync($data);
+        $user->save();
+        return $user;
+    }
+    public  function attendExam($user,array $data)
+    {
+        $user->attendExam()->attach($data);
+        $user->save();
+        return $user;
     }
 }
