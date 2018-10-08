@@ -25,11 +25,11 @@ trait RestTrait
      * @return Response
      */
 
-    protected function badRequest(Response $response, $data)
+    protected function badRequest(Response $response, $data , $code = 400)
     {
         $data_error['error'] = $data;
-        $data_error['code'] = 400;
-        return $response->withJson($data_error, 400);
+        $data_error['code'] = $code;
+        return $response->withJson($data_error, $code);
 
     }
 

@@ -18,7 +18,6 @@ class DashBoardController extends _Controller
 {
     public function index(Request $request, Response $response, $args)
     {
-
         return $this->view->render($response, 'admin.dashboard.index');
     }
 }

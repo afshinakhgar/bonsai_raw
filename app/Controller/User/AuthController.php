@@ -19,7 +19,7 @@ class AuthController extends _Controller
 
 
     public function post_create(Request $request , Response $response , $args )
-	{
+    {
         if($this->validator->isValid()){
 
 
@@ -47,22 +47,22 @@ class AuthController extends _Controller
             $this->flash->addMessage('error','Invalid Inputs');
             return $response->withRedirect('/');
         }
-	}
+    }
 
 
 
-	public function get_login(Request $request , Response $response , $args)
-	{
+    public function get_login(Request $request , Response $response , $args)
+    {
 //		if(Auth::check()){
 //			return $response->withRedirect('/');
 //		}
-		return $this->view->render($response, 'auth.login');
+        return $this->view->render($response, 'auth.login');
 
-	}
+    }
 
 
-	public function post_login(Request $request , Response $response , $args)
-	{
+    public function post_login(Request $request , Response $response , $args)
+    {
 
         $user =  Auth::login($request->getParam('loginfield'),$request->getParam('password'),'basic');
 
@@ -79,17 +79,32 @@ class AuthController extends _Controller
             ]), time() + (86400 * 30), "/"); // 86400 = 1 day *30 => 30 day
 
 
-            return $response->withRedirect('/');
+            return $response->withRedirect(route('admin.dashboard.index'));
 
 
         }else{
-			return $response->withRedirect('/');
+            return $response->withRedirect('/');
         }
 
 
 
 
-	}
+    }
+
+
+
+    public function get_logout(Request $request , Response $response , $args)
+    {
+        session_destroy();
+
+        unset($_SESSION);
+
+        setcookie('user','',time());
+
+
+        return $response->withRedirect('/');
+
+    }
 
 
 //    public function post_create(Request $request , Response $response , $args )

@@ -25,8 +25,13 @@ class AuthService extends AbstractServices
 
 
 
-	public function user()
+	public function user($loginData = null)
 	{
+        if($loginData){
+            return $this->UserDataAccess->getUserById(isset($loginData['id']) ? $loginData['id'] : 0);
+        }
+
+
 		if(!isset($_SESSION['user']) && isset($_COOKIE['user']) &&  json_decode($_COOKIE['user'],true) !== null){
 			$_SESSION['user'] = json_decode($_COOKIE['user'],true);
 		}

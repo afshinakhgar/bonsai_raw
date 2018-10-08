@@ -112,7 +112,6 @@ class UserController extends _Controller
         $params = $request->getParams();
         $user = $this->UserDataAccess->getUserById($args['id']);
 
-
         $validate = $this->validator->validate($request,[
             'username' => v::noWhitespace()->notEmpty()
         ]);
@@ -145,6 +144,8 @@ class UserController extends _Controller
 
         $this->flash->addMessage('success','کاربر ویرایش شد');
         $userField = $args['id'] ? $args['id'] : $params['id'];
+
+
         return $response->withRedirect(route('admin.user.edit',['id'=>$userField]));
     }
 

@@ -1,0 +1,1 @@
+{{trans('general.404')}}

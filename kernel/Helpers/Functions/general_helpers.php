@@ -119,3 +119,53 @@ function jalaliDate($format,$timestamp='',$none='',$time_zone='Asia/Tehran',$tr_
     $jdate = new \Kernel\Helpers\JalaliDateHelper();
     return $jdate->jdate($format,$timestamp,$none,$time_zone,$tr_num);
 }
+
+
+
+/*folder*/
+function getImageDirName($photoid, $type = 'user_photo' ,$collectionNum =1000)
+{
+    $folderName = null;
+    switch ($type) {
+        case 'user_photo':
+            $folderName = (int) ($photoid / $collectionNum);
+            $folderName++;
+            $dir = 'user_photo/'.$folderName.'/';
+            break;
+        case 'study_photo':
+            $folderName = (int) ($photoid / $collectionNum);
+            $folderName++;
+            $dir = 'study_photo/'.$folderName.'/';
+            break;
+    }
+
+    if ($folderName) {
+        $folderName = $dir;
+    }else{
+        $folderName = (int) ($photoid / $collectionNum);
+        $folderName++;
+        $folderName = $type.'/'.$folderName.'/';
+    }
+
+    return $folderName;
+}
+
+function getImageFileName($photoid,$fileType='l',$type='user_photo')
+{
+    $fileName = null;
+
+    switch ($type) {
+        case 'user_photo':
+            $fileName = 'user'.(int)$photoid.'-'.$fileType;
+            break;
+        case 'study_photo':
+            $fileName = 'study'.(int)$photoid.'-'.$fileType;
+            break;
+        default :
+            $fileName = (int)$photoid.'-'.$fileType;
+            break;
+    }
+
+
+    return $fileName;
+}

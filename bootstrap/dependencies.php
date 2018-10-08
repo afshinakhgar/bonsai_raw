@@ -55,6 +55,36 @@ $container['generalErrorHandler'] = function ($container) {
     return new \Kernel\Handlers\ErrorHandler($container['logger']);
 };
 
+//
+//$container['errorHandler'] = function ($container) {
+//    return function ($request, $response, $exception) use ($container) {
+//
+//
+//        $uri          = $request->getUri();
+//        $current_path = $uri->getPath();
+//        $route        = $request->getAttribute('route');
+//        $routeSegment = explode('/',trim($current_path,'/'));
+//
+//
+//        if($routeSegment[0] != 'api'){
+//            return '400';
+//        }
+//        $data = [
+//            'code' => $exception->getCode(),
+//            'message' => $exception->getMessage(),
+//            'file' => $exception->getFile(),
+//            'line' => $exception->getLine(),
+//            'trace' => explode("\n", $exception->getTraceAsString()),
+//        ];
+//
+//        return $container->get('response')->withStatus(500)
+//            ->withHeader('Content-Type', 'application/json')
+//            ->write(json_encode($data));
+//    };
+//};
+
+
+
 $container['translator'] = function ($container) {
     $translate = new \Kernel\Helpers\TranslationHelper($container);
     return $translate;
@@ -104,7 +134,7 @@ $container['view'] = function ($container) {
 
 $app->getContainer()['view']->getRenderer()->getCompiler()->directive('helloWorld', function(){
 
-	return "<?php echo 'Hello Directive'; ?>";
+    return "<?php echo 'Hello Directive'; ?>";
 });
 
 $whoopsGuard = new \Zeuxisoo\Whoops\Provider\Slim\WhoopsGuard();
@@ -132,13 +162,13 @@ if($filesInServices){
 
 $filesInServicesKernel = $Directory->scan(__APP_ROOT__.'/kernel/Services/');
 if($filesInServicesKernel){
-	foreach($filesInServicesKernel as $serviceKernel){
-		$contentKernel = preg_replace('/.php/','',$serviceKernel);
-		$container['Kernel_'.$contentKernel] = function () use ($container , $contentKernel){
-			$class =  '\\Kernel\\Services\\'.$contentKernel ;
-			return new $class($container);
-		};
-	}
+    foreach($filesInServicesKernel as $serviceKernel){
+        $contentKernel = preg_replace('/.php/','',$serviceKernel);
+        $container['Kernel_'.$contentKernel] = function () use ($container , $contentKernel){
+            $class =  '\\Kernel\\Services\\'.$contentKernel ;
+            return new $class($container);
+        };
+    }
 }
 
 
@@ -178,6 +208,25 @@ $GLOBALS['container'] = $container;
 $GLOBALS['app'] = $app;
 $GLOBALS['settings'] = $container['settings'];
 
+
+$view =   ($container['view']);
+
+\Illuminate\Pagination\Paginator::viewFactoryResolver(function() use ($view) {
+    return new class($view) {
+        private $view;
+        private $template;
+        private $data;
+
+        public function __construct(\Slim\Views\Blade $view)
+        {
+            $this->view = $view;
+        }
+
+    };
+});
+\Illuminate\Pagination\Paginator::currentPageResolver(function() use ($container)  {
+    return $container['request']->getParam('page');
+});
 
 
 return $container;

@@ -16,4 +16,14 @@ namespace Kernel\Abstracts;
 class AbstractDataAccess extends AbstractContainer
 {
 
+    public function updateFieldByObj($obj, array $fields)
+    {
+        foreach ($fields as $field => $value) {
+            $obj->$field = $value;
+        }
+        $obj->save();
+
+
+        return $obj;
+    }
 }
