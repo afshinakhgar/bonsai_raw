@@ -33,7 +33,7 @@
                     <!-- Emphasis label -->
                     @foreach($user->roles as $role)
 
-                    <small class="label label-danger"><i class="fa fa-clock-o"></i>
+                    <small class="label label-info">
                            {{$role->display_name}}
                     </small>
                 @endforeach
