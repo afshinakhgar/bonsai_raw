@@ -149,3 +149,6 @@ storage/logs
 storage/cache
 storage/report
 resources/view/cache/
+
+
+public/uploads

@@ -37,17 +37,46 @@ class RoleMiddleWare extends AbstractMiddleWare
 
         $roleObj = Role::where('name',$this->role)->first();
         $permsArr = [];
+
+//        $routesAll = $GLOBALS['container']->get('router')->getRoutes();
+//        foreach($GLOBALS['container']->router->getRoutes() as $routeRow){
+//            foreach($route->getMethods() as $methods){
+//                dd($route->getName());
+//
+//
+//            }
+//
+//        }
+//
         foreach($roleObj->permission as $perm){
             $permsArr[$perm->name] = true;
+            $permsArrNames[] = $perm->name;
         }
 
+        $path_url = trim($current_path,'/');
 
-        if($this->role != 'admin'){
-            if(!$permsArr[$route->getName()] ){
-                return $response->withRedirect('/');
+
+        $needPermission = false;
+        if(in_array($path_url,$permsArrNames)){
+            $needPermission = true ;
+        }
+
+        if( in_array($route->getName(),$permsArrNames)){
+            $needPermission = true ;
+        }
+        $haveAccess = false;
+        if($needPermission){
+            if($permsArr[$route->getName()] ){
+                $haveAccess = true;
+//                return $response->withRedirect('/');
             }
+
         }
 
+
+        if(!$haveAccess && !$role){
+            return $response->withRedirect('/');
+        }
 
 
 
@@ -59,5 +88,14 @@ class RoleMiddleWare extends AbstractMiddleWare
 
 
         return $response;
+    }
+
+
+
+
+    function permit($route)
+    {
+
+
     }
 }

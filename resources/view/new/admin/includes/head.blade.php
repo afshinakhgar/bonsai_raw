@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="{{asset('templates/new/dist/fonts/fonts-fa.css')}}">
 <link rel="stylesheet" href="{{asset('templates/new/dist/css/bootstrap-rtl.min.css')}}">
 <link rel="stylesheet" href="{{asset('templates/new/dist/css/rtl.css')}}">
+<link rel="stylesheet" href="{{asset('templates/new/over.css')}}">
 
 
 <script src="{{asset('templates/new/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>

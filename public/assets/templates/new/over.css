@@ -1,0 +1,6 @@
+.profile_image_list .image_profile_size_thumb{
+    max-width: 30px;
+    float: right;
+
+    margin-left: 10px;
+}

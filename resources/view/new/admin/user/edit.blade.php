@@ -93,7 +93,7 @@
                     <label for="mobile"></label>
                     <input type="file" name="file">
                     <hr>
-                    @include('admin.includes.widgets.profile_photo',['type'=>'user_profile','size'=>'l'])
+                    @include('admin.includes.widgets.profile_photo',['type'=>'user_profile','size'=>'thumb'])
 
 
                 </div>

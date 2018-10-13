@@ -25,7 +25,13 @@
                     <input type="checkbox" value="" name="">
                     <!-- todo text -->
                     <span class="text">
+
                         <a href="{{route('admin.user.profile',['username'=>$user->username])}}">
+
+                            <span class="profile_image_list">
+                                @include('admin.includes.widgets.profile_photo',['type'=>'user_profile','size'=>'thumb'])
+                            </span>
+
                             {{$user->first_name}} /  {{$user->last_name}}
                         </a>
                     </span>
@@ -41,11 +47,11 @@
                 <!-- General tools such as edit or delete-->
                     <div class="tools">
                         <a href="{{route('admin.user.edit',['id'=>$user->id])}}" class="fa fa-edit"></a>
-                        <a href="{{route('admin.user.delete',['id'=>$user->id])}}" class="fa fa-trash-o"></a>
+                        <a href="{{route('admin.user.delete',['id'=>$user->id])}}" class="fa fa-trash"></a>
                     </div>
                 </li>
 
-                    @endforeach
+                @endforeach
             </ul>
             @endif
         </div>
