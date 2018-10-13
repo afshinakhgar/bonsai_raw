@@ -123,20 +123,16 @@ function jalaliDate($format,$timestamp='',$none='',$time_zone='Asia/Tehran',$tr_
 
 
 /*folder*/
-function getImageDirName($photoid, $type = 'user_photo' ,$collectionNum =1000)
+function getImageDirName($photoid, $type = 'user_profile' ,$collectionNum =1000)
 {
     $folderName = null;
     switch ($type) {
-        case 'user_photo':
+        case 'user_profile':
             $folderName = (int) ($photoid / $collectionNum);
             $folderName++;
-            $dir = 'user_photo/'.$folderName.'/';
+            $dir = 'user_profile/'.$folderName.'/';
             break;
-        case 'study_photo':
-            $folderName = (int) ($photoid / $collectionNum);
-            $folderName++;
-            $dir = 'study_photo/'.$folderName.'/';
-            break;
+
     }
 
     if ($folderName) {
@@ -150,16 +146,13 @@ function getImageDirName($photoid, $type = 'user_photo' ,$collectionNum =1000)
     return $folderName;
 }
 
-function getImageFileName($photoid,$fileType='l',$type='user_photo')
+function getImageFileName($photoid,$fileType='l',$type='user_profile')
 {
     $fileName = null;
 
     switch ($type) {
-        case 'user_photo':
+        case 'user_profile':
             $fileName = 'user'.(int)$photoid.'-'.$fileType;
-            break;
-        case 'study_photo':
-            $fileName = 'study'.(int)$photoid.'-'.$fileType;
             break;
         default :
             $fileName = (int)$photoid.'-'.$fileType;
@@ -168,4 +161,19 @@ function getImageFileName($photoid,$fileType='l',$type='user_photo')
 
 
     return $fileName;
+}
+
+
+
+function hasPerm($permission)
+{
+    $roles = \Kernel\Facades\Auth::user()->roles;
+    foreach($roles as $role){
+        foreach($role->permission as $perm){
+            if($perm->name == $permission ){
+                return true;
+            }
+        }
+    }
+    return false;
 }
