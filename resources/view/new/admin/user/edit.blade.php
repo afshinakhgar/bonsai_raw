@@ -6,11 +6,11 @@
         <div class="box-body">
             <form method="post" enctype="multipart/form-data"  action="{{route('admin.user.update',['id'=>$user->id])}}" id="#" class="col-md-12 go-right">
                 <div class="form-group">
-                    <label for="name">نام</label>
+                    <label for="first_name">نام</label>
                     <input id="first_name" name="first_name" type="text" class="form-control"  value="{{$user->first_name}}">
                 </div>
                 <div class="form-group">
-                    <label for="name">نام خانوادگی</label>
+                    <label for="last_name">نام خانوادگی</label>
                     <input id="last_name" name="last_name" type="text" class="form-control" value="{{$user->last_name}}">
                 </div>
                 <div class="form-group">
@@ -20,20 +20,20 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="mobile">نام کاربری *</label>
+                    <label for="username">نام کاربری *</label>
 
-                    <input id="mobile" name="username" type="text" class="form-control" required value="{{$user->username}}">
+                    <input id="username" name="username" type="text" class="form-control" required value="{{$user->username}}">
                 </div>
 
 
                 <div class="form-group">
-                    <label for="mobile">ایمیل</label>
+                    <label for="email">ایمیل</label>
 
                     <input id="email" name="email" type="email" class="form-control" required value="{{$user->email}}">
                 </div>
 
                 <div class="form-group">
-                    <label for="mobile">نقش</label>
+                    <label for="roles">نقش</label>
 
                     <span id="current_demo_roles">
                         @foreach($user->roles as $role)
@@ -80,6 +80,22 @@
                     </select>
                     <div id="add_role" class="btn btn-info" style="margin-top: 10px"> + </div>
                     <input type="hidden" name="roles" value="{{implode(',',$data_roles)}}" id="current_roles">
+
+
+
+
+
+
+                </div>
+
+
+                <div class="form-group">
+                    <label for="mobile"></label>
+                    <input type="file" name="file">
+                    <hr>
+                    @include('admin.includes.widgets.profile_photo',['type'=>'user_profile','size'=>'l'])
+
+
                 </div>
 
                 <div class="form-group ">

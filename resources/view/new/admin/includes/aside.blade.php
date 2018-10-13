@@ -25,24 +25,38 @@
         {{--<!-- /.search form -->--}}
         {{--<!-- sidebar menu: : style can be found in sidebar.less -->--}}
         <ul class="sidebar-menu">
+            @if(hasPerm('admin.dashboard.index'))
             </li> <li class="active ">
                 <a href="{{route('admin.dashboard.index')}}">
                     <i class="fa fa-dashboard"></i> <span>  داشبورد</span>
                 </a>
             </li>
-
+            @endif
+            @if(hasPerm('admin.user.list'))
             <li class="header">کاربری </li>
             <li class="active ">
                 <a href="{{route('admin.user.list')}}">
                     <i class="fa fa-user"></i> <span>لیست کاربران</span>
                 </a>
             </li>
+            @endif
+
+            @if(hasPerm('admin.role.list'))
             <li class="active ">
                 <a href="{{route('admin.role.list')}}">
                     <i class="fa fa-key"></i> <span>لیست نقش های کاربری</span>
                 </a>
             </li>
+            @endif
 
+
+            @if(hasPerm('admin.role.permission.list'))
+            <li class="active ">
+                <a href="{{route('admin.role.permission.list')}}">
+                    <i class="fa fa-key"></i> <span>لیست دسترسی ها </span>
+                </a>
+            </li>
+            @endif
 
 
             {{--<li class="treeview">--}}
