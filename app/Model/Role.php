@@ -25,7 +25,10 @@ class Role extends AbstractModel
         return $this->belongsToMany(\App\Model\User::class );
     }
 
-
+    public function permission()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 
 }
 

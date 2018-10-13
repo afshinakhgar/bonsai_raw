@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin\User;
 use App\Controller\_Controller;
+use App\Model\Permission;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Respect\Validation\Validator as v;
@@ -69,7 +70,19 @@ class RoleController extends _Controller
     public function edit(Request $request, Response $response, $args)
     {
         $role = $this->RoleDataAccess->getRoleById($args['id']);
-        return $this->view->render($response, 'admin.user.role.edit',['role'=>$role]);
+
+        $all_perms = Permission::all();
+        $selected_perms = $role->permission()->get();
+
+        foreach($selected_perms as $row){
+            $selected_perm[$row->id] =  true;
+        }
+
+        return $this->view->render($response, 'admin.user.role.edit',[
+            'role'=>$role,
+            'all_perms'=>$all_perms,
+            'selected_perms'=>$selected_perm,
+        ]);
     }
 
 
@@ -96,4 +109,34 @@ class RoleController extends _Controller
         return $response->withRedirect(route('admin.role.edit',['id'=>$args['id']]));
     }
 
+
+
+
+
+
+
+    public function attach_perms(Request $request, Response $response, $args)
+    {
+//        $validate = $this->validator->validate($request,[
+//            'id' => v::notEmpty(),
+//        ]);
+
+        $params = $request->getParams();
+//
+//        if (!$validate->isValid()) {
+//            $this->flash->addMessage('error','ورودی مشکل دارد');
+//            return $response->withRedirect(route('admin.role.edit',['id'=>$args['id']]));
+//        }
+
+
+        $perms = [];
+        foreach($params['perm'] as $k=>$row){
+            $perms[] = $k;
+        }
+        $this->RoleDataAccess->attach_perms_to_roles($perms,$args['id']);
+
+
+        $this->flash->addMessage('success','دسترسی ها ویرایش شدند');
+        return $response->withRedirect(route('admin.role.edit',['id'=>$args['id']]));
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Middleware;
 
+use App\Model\Role;
 use Kernel\Abstracts\AbstractMiddleWare;
 use Kernel\Facades\Auth;
 
@@ -27,6 +28,28 @@ class RoleMiddleWare extends AbstractMiddleWare
     {
 
         $role = Auth::hasRole($this->role);
+
+        $uri          = $request->getUri();
+        $current_path = $uri->getPath();
+        $route        = $request->getAttribute('route');
+//        dd($route->getName());
+//
+
+        $roleObj = Role::where('name',$this->role)->first();
+        $permsArr = [];
+        foreach($roleObj->permission as $perm){
+            $permsArr[$perm->name] = true;
+        }
+
+
+        if($this->role != 'admin'){
+            if(!$permsArr[$route->getName()] ){
+                return $response->withRedirect('/');
+            }
+        }
+
+
+
 
         if(!$role){
             return $response->withRedirect('/');

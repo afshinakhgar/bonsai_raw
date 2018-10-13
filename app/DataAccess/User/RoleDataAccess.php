@@ -13,7 +13,7 @@ use App\Model\Role;
 use Kernel\Abstracts\AbstractDataAccess;
 
 /**
- * @param UserDataAccess
+ * @param RoleDataAccess
  */
 
 class RoleDataAccess extends AbstractDataAccess
@@ -62,5 +62,13 @@ class RoleDataAccess extends AbstractDataAccess
         $role->save();
     }
 
+
+
+    public function attach_perms_to_roles($params,$id)
+    {
+        $role = Role::find($id);
+        $role->permission()->sync($params);
+//        $role->save();
+    }
 
 }

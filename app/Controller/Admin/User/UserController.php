@@ -4,6 +4,8 @@ namespace App\Controller\Admin\User;
 use App\Controller\_Controller;
 use App\Model\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Kernel\Facades\File;
+use Kernel\Facades\Image;
 use Kernel\Helpers\HashHelper;
 use Kernel\Helpers\PagerHelper;
 use Slim\Http\Request;
@@ -110,16 +112,18 @@ class UserController extends _Controller
     public function update(Request $request, Response $response, $args)
     {
         $params = $request->getParams();
-        $user = $this->UserDataAccess->getUserById($args['id']);
+            $user = $this->UserDataAccess->getUserById($args['id']);
 
         $validate = $this->validator->validate($request,[
-            'username' => v::noWhitespace()->notEmpty()
+            'username' => v::noWhitespace()->notEmpty(),
+        ], null, [
+            'noWhitespace' => trans('messages.errors.noWhitespace'),
+                // ...
         ]);
-
         $params = $request->getParams();
 
         if (!$validate->isValid()) {
-            $this->flash->addMessage('error','ورودی مشکل دارد');
+            $this->flash->addMessage('error',$validate->getErrors());
             $userField = $args['id'] ? $args['id'] : $params['mobile'];
             return $response->withRedirect(route('admin.user.edit',['id'=>$userField]));
         }
@@ -141,6 +145,31 @@ class UserController extends _Controller
         $user->roles()->sync($attachedRoles);
         $user->save();
 
+        $files_data = $request->getUploadedFiles();
+
+        /* Upload file */
+        if($files_data){
+            $uploadedFile = $files_data['file'];
+
+            if($uploadedFile->getSize()){
+                if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+                    $directory = ($this->settings['image']['temp']);
+                    if(!is_dir($directory)){
+                        @mkdir($directory);
+                    }
+                    $file = File::moveUploadedFile($directory,$user->id, $uploadedFile);
+                    Image::createPhotos($file,$user->id,'user_profile');
+                    if(file_exists($file)){
+                        File::delete($file);
+                    }
+
+                }
+
+                $user->has_pic = 'yes';
+                $user->save();
+
+            }
+        }
 
         $this->flash->addMessage('success','کاربر ویرایش شد');
         $userField = $args['id'] ? $args['id'] : $params['id'];

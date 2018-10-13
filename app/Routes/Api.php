@@ -24,7 +24,6 @@ $app->group('/api', function ($app) use ($route) {
         $app->group('/user', function () use ($route) {
             $route->get('/list', \App\Controller\Api\V1\User\UserController::class.':index')->setName('api.user.list');
             $route->get('/show/{username}', \App\Controller\Api\V1\User\UserController::class.':show')->setName('api.user.show');
-            $route->get('/attend_exam/{exam_id}', \App\Controller\Api\V1\User\UserController::class.':attend_exam')->setName('api.user.attend_exam');
         })
             ->add($middlewareLogin);
 

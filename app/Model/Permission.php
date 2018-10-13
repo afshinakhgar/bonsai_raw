@@ -10,7 +10,7 @@ namespace App\Model;
 
 use Kernel\Abstracts\AbstractModel;
 
-class Role extends AbstractModel
+class Permission extends AbstractModel
 {
     protected $fillable = [];
 
@@ -20,9 +20,9 @@ class Role extends AbstractModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users()
+    public function role()
     {
-        return $this->belongsToMany(\App\Model\User::class );
+        return $this->belongsToMany(\App\Model\Role::class );
     }
 
 

@@ -19,4 +19,5 @@ class Token extends AbstractModel
 		return $this->belongsTo(User::class);
 	}
 
+
 }

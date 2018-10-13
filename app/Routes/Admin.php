@@ -26,6 +26,18 @@ $app->group('/admin', function () use ($app , $route) {
         $app->get('/edit/{id}', \App\Controller\Admin\User\RoleController::class.':edit')->setName('admin.role.edit');
         $app->post('/update/{id}', \App\Controller\Admin\User\RoleController::class.':update')->setName('admin.role.update');
 
+        $app->post('/attach_perms/{id}', \App\Controller\Admin\User\RoleController::class.':attach_perms')->setName('admin.role.attach_perms');
+
+
+        $app->group('/permission', function () use ($app , $route) {
+            $app->get('/list', \App\Controller\Admin\User\PermissionController::class.':index')->setName('admin.role.permission.list');
+            $app->get('/create', \App\Controller\Admin\User\PermissionController::class.':create')->setName('admin.role.permission.create');
+            $app->post('/store', \App\Controller\Admin\User\PermissionController::class.':store')->setName('admin.role.permission.store');
+            $app->get('/edit/{id}', \App\Controller\Admin\User\PermissionController::class.':edit')->setName('admin.role.permission.edit');
+            $app->post('/update/{id}', \App\Controller\Admin\User\PermissionController::class.':update')->setName('admin.role.permission.update');
+        });
+
+
     });
 
 

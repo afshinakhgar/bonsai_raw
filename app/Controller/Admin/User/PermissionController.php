@@ -6,20 +6,20 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Respect\Validation\Validator as v;
 
-class RoleController extends _Controller
+class PermissionController extends _Controller
 {
 
     public function index(Request $request, Response $response, $args)
     {
 
         $limit     = 12; // Number of posts on one page
-        $list = $this->RoleDataAccess->getAllRolesPaging($limit);
+        $list = $this->PermissionDataAccess->getAllPaginate($limit);
 
 
         $pagingData = $this->PagerHelper->pagingData($request,$list,$limit);
 
 
-        return $this->view->render($response, 'admin.user.role.index',[
+        return $this->view->render($response, 'admin.user.permission.index',[
             'list'=>$list,
             'pagination'=>$pagingData
         ]);
@@ -27,9 +27,9 @@ class RoleController extends _Controller
 
     public function create(Request $request, Response $response, $args)
     {
-
-        return $this->view->render($response, 'admin.user.role.create');
+        return $this->view->render($response, 'admin.user.permission.create');
     }
+
     public function store(Request $request, Response $response, $args)
     {
         $params = $request->getParams();
@@ -42,15 +42,18 @@ class RoleController extends _Controller
 
             if($validate->isValid()){
 
+                $stdObjPermission = new \stdClass();
+                $stdObjPermission->name = $params['name'];
+                $stdObjPermission->display_name = $params['display_name'];
+                $stdObjPermission->description = $params['description'];
 
-
-                $createRole = $this->RoleDataAccess->createRole($params);
+                $createRole = $this->PermissionDataAccess->create($stdObjPermission);
 
                 if(!isset($createRole->id)){
-                    $this->flash->addMessage('info','نقش ایجاد شد');
+                    $this->flash->addMessage('info','دسترسی ایجاد شد');
                     return $response->withRedirect('list');
                 }else{
-                    $this->flash->addMessage('error','نقش وجود دارد');
+                    $this->flash->addMessage('error','دسترسی وجود دارد');
 
                     return $response->withRedirect('list');
                 }
@@ -68,8 +71,8 @@ class RoleController extends _Controller
 
     public function edit(Request $request, Response $response, $args)
     {
-        $role = $this->RoleDataAccess->getRoleById($args['id']);
-        return $this->view->render($response, 'admin.user.role.edit',['role'=>$role]);
+        $role = $this->PermissionDataAccess->getById($args['id']);
+        return $this->view->render($response, 'admin.user.permission.edit',['role'=>$role]);
     }
 
 
@@ -85,15 +88,17 @@ class RoleController extends _Controller
 
         if (!$validate->isValid()) {
             $this->flash->addMessage('error','ورودی مشکل دارد');
-            return $response->withRedirect(route('admin.role.edit',['id'=>$args['id']]));
+            return $response->withRedirect(route('admin.role.permission.edit',['id'=>$args['id']]));
         }
 
 
-        $this->RoleDataAccess->updateRole($params,$args['id']);
+
+        $this->PermissionDataAccess->update($params,$args['id']);
 
 
         $this->flash->addMessage('success','نقش ویرایش شد');
-        return $response->withRedirect(route('admin.role.edit',['id'=>$args['id']]));
+        return $response->withRedirect(route('admin.role.permission.edit',['id'=>$args['id']]));
     }
+
 
 }

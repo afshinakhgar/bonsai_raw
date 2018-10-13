@@ -53,7 +53,7 @@ class UserDataAccess extends AbstractDataAccess
 
 	public static function getUserById(int $userid)
 	{
-		return User::find((int)$userid,['id','first_name','last_name','username','mobile','email']);
+		return User::find((int)$userid,['id','first_name','last_name','username','mobile','email','has_pic']);
 	}
 
 

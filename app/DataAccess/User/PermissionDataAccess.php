@@ -2,130 +2,133 @@
 namespace App\DataAccess\User;
 
 
+use App\Model\Permission;
+use App\Model\Role;
 use App\Model\User;
 use Kernel\Abstracts\AbstractDataAccess;
 
 /**
- * Class TestDataAccess
+ * Class PermissionDataAccess
  * @package App\DataAccess
  */
-class UserDataAccess extends AbstractDataAccess
+class PermissionDataAccess extends AbstractDataAccess
 {
 	/**
 	 * @param string $loginField
 	 * @return mixed
 	 */
-	public function getUserLoginField(string $loginField)
+	public function getAllPaginate(string $loginField)
 	{
-		return User::where('username', $loginField)
-			->orWhere('email', $loginField)
-			->orWhere('mobile', $loginField)
-			->first();
+		return Permission::paginate(20);
 	}
 
-
-    public function getUserWithUsername(string $username)
+    public  function create($obj)
     {
-        return User::where('username', $username)
-            ->first();
+        $perm = new Permission();
+        $perm->name = $obj->name;
+        $perm->display_name = $obj->display_name;
+        $perm->description = $obj->description;
+
+        $perm->save();
     }
 
 
-	public function getUserLoginFieldWithToken(string $loginField , string $token)
-	{
-		return User::where('api_token',$token)
-			->where('username', $loginField)
-			->orWhere('email', $loginField)
-			->orWhere('mobile', $loginField)
-			->first();
-	}
-
-	public function getUserLoginFieldWithPassword(string $loginField , string $password)
-	{
-		return User::where('password',$password)
-			->where('username', $loginField)
-			->orWhere('email', $loginField)
-			->orWhere('mobile', $loginField)
-			->first();
-	}
-
-
-
-	public static function getUserById(int $userid)
-	{
-		return User::find((int)$userid,['id','first_name','last_name','username','mobile','email']);
-	}
-
-
-	public  function getUserRoles(int $userid)
-	{
-
-		$user = User::find((int)$userid);
-		if(!$user){
-			return false;
-		}
-		return User::find((int)$userid)->roles()->get();
-	}
-
-
-	public  function createUser($userObj)
-	{
-        $user = new User();
-        $user->first_name = $userObj->first_name;
-        $user->last_name = $userObj->last_name;
-        $user->username = $userObj->username;
-        $user->mobile = $userObj->mobile;
-        $user->email = $userObj->email;
-        $user->api_token = $userObj->api_token;
-        $user->password = $userObj->password;
-        $user->save();
-
-
-        return $userObj;
-	}
-
-
-    public  function createUsersByFields(array $fields)
+    public function getById(int $id)
     {
-
-        $user = new User;
-        foreach($fields as $field=>$value){
-            $user->$field = $value;
-        }
-
-        $user->save();
-
-        return $user;
-    }
-
-    public  function getAllUsersPaging(int $limit = 20)
-    {
-        return User::paginate($limit);
+        return Permission::find($id);
     }
 
 
 
-    public  function updateuserFieldById($user,array $fields)
+    public function update($params,$id)
     {
-        foreach($fields as $field=>$value){
-            $user->$field = $value;
-        }
-        $user->save();
+        $perm = Permission::find($id);
+        $perm->name = $params['name'];
+        $perm->display_name = $params['display_name'];
+        $perm->description = $params['description'] ? $params['description'] : '';
 
-
-        return $user;
+        $perm->save();
     }
 
-    public  function attendStudy($user,array $data)
-    {
-        $user->attendStudy()->sync($data);
-        $user->save();
-        return $user;
-    }
-    public  function attendExam($user,array $data)
-    {
-        $user->attendExam()->attach($data);
-        $user->save();
-        return $user;
-    }
+
+
+//
+//	public function getUserLoginFieldWithToken(string $loginField , string $token)
+//	{
+//		return User::where('api_token',$token)
+//			->where('username', $loginField)
+//			->orWhere('email', $loginField)
+//			->orWhere('mobile', $loginField)
+//			->first();
+//	}
+//
+//	public function getUserLoginFieldWithPassword(string $loginField , string $password)
+//	{
+//		return User::where('password',$password)
+//			->where('username', $loginField)
+//			->orWhere('email', $loginField)
+//			->orWhere('mobile', $loginField)
+//			->first();
+//	}
+//
+//
+//
+//	public static function getUserById(int $userid)
+//	{
+//		return User::find((int)$userid,['id','first_name','last_name','username','mobile','email']);
+//	}
+//
+//
+//	public  function getUserRoles(int $userid)
+//	{
+//
+//		$user = User::find((int)$userid);
+//		if(!$user){
+//			return false;
+//		}
+//		return User::find((int)$userid)->roles()->get();
+//	}
+//
+//
+
+//
+//
+//    public  function createUsersByFields(array $fields)
+//    {
+//
+//        $user = new User;
+//        foreach($fields as $field=>$value){
+//            $user->$field = $value;
+//        }
+//
+//        $user->save();
+//
+//        return $user;
+//    }
+//
+//
+//
+//    public  function updateuserFieldById($user,array $fields)
+//    {
+//        foreach($fields as $field=>$value){
+//            $user->$field = $value;
+//        }
+//        $user->save();
+//
+//
+//        return $user;
+//    }
+//
+//    public  function attendStudy($user,array $data)
+//    {
+//        $user->attendStudy()->sync($data);
+//        $user->save();
+//        return $user;
+//    }
+//    public  function attendExam($user,array $data)
+//    {
+//        $user->attendExam()->attach($data);
+//        $user->save();
+//        return $user;
+//    }
 }
