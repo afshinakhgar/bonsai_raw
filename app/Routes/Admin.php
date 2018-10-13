@@ -40,6 +40,10 @@ $app->group('/admin', function () use ($app , $route) {
 
     });
 
+    $app->group('/search', function () use ($app , $route) {
+        $app->get('/result', \App\Controller\Admin\SearchController::class.':search')->setName('admin.search.result');
+
+    });
 
 
 

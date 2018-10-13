@@ -20,6 +20,7 @@ use Psr\Container\ContainerInterface;
  * @property \App\DataAccess\User\UserDataAccess UserDataAccess
  * @property \App\DataAccess\User\RoleDataAccess RoleDataAccess
  * @property \App\DataAccess\User\PermissionDataAccess PermissionDataAccess
+ * @property \App\DataAccess\SearchDataAccess SearchDataAccess
  * @property RequestService Kernel_RequestService
  */
 class _Controller extends AbstractController
