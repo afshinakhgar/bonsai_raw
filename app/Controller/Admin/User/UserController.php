@@ -118,7 +118,6 @@ class UserController extends _Controller
             'username' => v::noWhitespace()->notEmpty(),
         ], null, [
             'noWhitespace' => trans('messages.errors.noWhitespace'),
-                // ...
         ]);
         $params = $request->getParams();
 

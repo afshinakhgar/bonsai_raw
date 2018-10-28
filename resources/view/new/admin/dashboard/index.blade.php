@@ -4,7 +4,7 @@
     <div class="box box-primary">
         <div class="box-header ui-sortable-handle" style="cursor: move;">
             <i class="ion ion-finger-print finger-print"></i>
-            <h3 class="box-title"> Bonsai</h3>
+            <h3 class="box-title">AdminPanel</h3>
             <div class="box-tools pull-left">
 
             </div>
