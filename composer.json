@@ -52,10 +52,11 @@
     "require-dev": {
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "5.4.*",
-        "symfony/process": "2.*",
-        "symfony/console": "^3.3",
+        "symfony/process": "dev-master",
+        "symfony/console": "dev-master",
         "runcmf/runtracy": "^0.2.3",
-        "psy/psysh": "^0.8.17"
+        "psy/psysh": "^0.8.17",
+        "thedevsaddam/laravel-schema": "^2.0"
     },
     "scripts": {
         "post-root-package-install": [
