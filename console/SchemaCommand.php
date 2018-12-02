@@ -62,7 +62,7 @@ class SchemaCommand extends AbstractConsole
                 $newArr[$key] = (array)$row;
             }
             $table = new Table($output);
-            $table->setHeaderTitle($table_name);
+            $table->setHeaderTitle($table_name.'('.$this->getTableRowCount($table_name).')');
 
             $table
                 ->setHeaders(array('Field','Type', 'Null','Key','Default','Extra'))
@@ -130,17 +130,52 @@ class SchemaCommand extends AbstractConsole
     }
     public function getColumns($tableName)
     {
-        return (DB::select("SHOW COLUMNS FROM " . $tableName));
+        return $this->transformColumns(DB::select("SHOW COLUMNS FROM " . $tableName));
+
     }
     public function getSchema()
     {
         foreach ($this->getTables() as $table) {
             $columns = $this->getColumns($table);
             $this->schema[$table]['attributes'] = $columns;
-//            $this->schema[$table]['rowsCount'] = $this->capsule->getTableRowCount($table);
+            $this->schema[$table]['rowsCount'] = $this->getTableRowCount($table);
         }
         return $this->schema;
     }
+
+    /**
+     * Get table total row count
+     * @param $table
+     * @return mixed
+     */
+    public function getTableRowCount($table)
+    {
+        return $this->capsule->table($table)->count();
+    }
+    /**
+     * Perform raw sql query
+     * @param $query
+     * @return mixed
+     */
+    public function rawQuery($query)
+    {
+        return $this->capsule->select(DB::raw($query));
+    }
+
+    private function transformColumns($columns)
+    {
+        return array_map(function ($column) {
+            return [
+                'Field' => $column->Field,
+                'Type' => $column->Type,
+                'Null' => $column->Null,
+                'Key' => $column->Key,
+                'Default' => $column->Default,
+                'Extra' => $column->Extra
+            ];
+        }, $columns);
+    }
+
 
 
 }
