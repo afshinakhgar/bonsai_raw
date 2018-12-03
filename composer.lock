@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c03c017e0e92d572850ade0eb9317b75",
+    "content-hash": "a3a93f9ecc4b06b0c4a5c8edb40dabec",
     "packages": [
         {
             "name": "akrabat/ip-address-middleware",
@@ -1427,6 +1427,62 @@
                 "storage"
             ],
             "time": "2018-11-23T23:41:29+00:00"
+        },
+        {
+            "name": "longman/ip-tools",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akalongman/php-ip-tools.git",
+                "reference": "6c050dfbf91811d14b9b3aa31fb7116eac0f0a18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akalongman/php-ip-tools/zipball/6c050dfbf91811d14b9b3aa31fb7116eac0f0a18",
+                "reference": "6c050dfbf91811d14b9b3aa31fb7116eac0f0a18",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.1",
+                "phpunit/phpunit": "~4.1",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Longman\\IPTools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Avtandil Kikabidze aka LONGMAN",
+                    "email": "akalongman@gmail.com",
+                    "homepage": "https://longman.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP IP Tools for manipulation with IPv4 and IPv6",
+            "homepage": "https://github.com/akalongman/php-ip-tools",
+            "keywords": [
+                "IP",
+                "Match",
+                "compare",
+                "ipv4",
+                "ipv6",
+                "mask",
+                "subnet",
+                "tools",
+                "utilities"
+            ],
+            "time": "2016-10-23T20:08:46+00:00"
         },
         {
             "name": "monolog/monolog",
