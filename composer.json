@@ -25,7 +25,6 @@
         "illuminate/pagination":"~5.5.0",
         "illuminate/translation": "^5.5",
         "nesbot/carbon": "^1.23",
-        "swiftmailer/swiftmailer": "^6.0",
         "predis/predis": "^1.1",
         "akrabat/ip-address-middleware": "^1.0",
         "respect/validation": "^1.1",
@@ -39,7 +38,9 @@
         "tuupola/slim-basic-auth": "^3.2",
         "gregwar/image": "2.*",
         "tuupola/slim-jwt-auth": "^3.1",
-        "longman/ip-tools": "^1.2"
+        "longman/ip-tools": "^1.2",
+        "kavenegar/php": "*",
+        "swiftmailer/swiftmailer": "^6.0"
 
     },
     "autoload": {

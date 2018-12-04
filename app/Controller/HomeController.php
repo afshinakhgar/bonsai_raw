@@ -12,5 +12,8 @@ class HomeController extends _Controller
     public function index(Request $request, Response $response, $args)
     {
         dd(Auth::check());
+
+        //        Sms::send('سلام',['0922']);
+
     }
 }
