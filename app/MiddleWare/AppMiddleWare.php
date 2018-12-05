@@ -1,9 +1,6 @@
 <?php
 namespace App\MiddleWare;
-use App\Model\Exam;
-use App\Model\Lesson;
-use App\Model\Study;
-use App\Model\User;
+
 use Kernel\Abstracts\AbstractMiddleWare;
 
 class AppMiddleWare extends AbstractMiddleWare

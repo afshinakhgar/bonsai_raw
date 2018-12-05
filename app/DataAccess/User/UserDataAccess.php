@@ -116,16 +116,5 @@ class UserDataAccess extends AbstractDataAccess
         return $user;
     }
 
-    public  function attendStudy($user,array $data)
-    {
-        $user->attendStudy()->sync($data);
-        $user->save();
-        return $user;
-    }
-    public  function attendExam($user,array $data)
-    {
-        $user->attendExam()->attach($data);
-        $user->save();
-        return $user;
-    }
+
 }

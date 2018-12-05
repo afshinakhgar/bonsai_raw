@@ -11,7 +11,6 @@ namespace App\Controller\Api\V1\User;
 
 use App\Controller\_Controller;
 use App\Model\User;
-use App\Serializer\Api\V1\Study\ExamAttendSerializer;
 use App\Serializer\Api\V1\User\AuthenticateSerializer;
 use App\Serializer\Api\V1\User\UserSerializer;
 use Firebase\JWT\JWT;
@@ -36,7 +35,6 @@ class UserController extends _Controller
         try {
 //            print_r($request->getAttribute('decoded_token_data'));
 
-//            $study = [];
 //
             $limit     = 2; // Number of posts on one page
             $list = $this->UserDataAccess->getAllUsersPaging($limit);
@@ -75,7 +73,6 @@ class UserController extends _Controller
         try {
 //            print_r($request->getAttribute('decoded_token_data'));
 
-//            $study = [];
 //            $data = $this->UserDataAccess->getById($args['id']);
 
 
@@ -85,7 +82,7 @@ class UserController extends _Controller
 
             $data[] = $user;
 
-            $collection = (new Collection($data, new UserSerializer($this->container)))->with(['study']);
+            $collection = (new Collection($data, new UserSerializer($this->container)));
             $document = new Document($collection);
 
             $response = $response->withStatus(200);
@@ -96,53 +93,6 @@ class UserController extends _Controller
         }
     }
 
-
-
-
-    public function attend_exam(Request $request , Response $response , $args)
-    {
-        try {
-
-
-            $logindata = $request->getAttribute('decoded_token_data');
-
-//            $study = [];
-            $user  = Auth::user($logindata);
-            $userid = $user->id;
-            $exam = $this->ExamDataAccess->getById($args['exam_id']);
-
-
-//
-            if(!$exam->id){
-                return $this->badRequest($response, ['Exam doesnt exists'],400);
-            }
-//            if($exam->user()->count() > 0){
-//                return $this->badRequest($response, ['user already attend'],400);
-//            }
-
-//            $user = $this->UserDataAccess->getUserById((int)$userid);
-
-
-//            dd(Auth::user());
-
-            $sumc = $this->UserDataAccess->attendExam($user,[$args['exam_id']]);
-
-
-
-            $data[] = (object)[
-                'user_id'=>$user->id,
-                'exam_id'=>$exam->id,
-            ];
-            $collection = (new Collection($data, new ExamAttendSerializer($this->container)));
-            $document = new Document($collection);
-
-            $response = $response->withStatus(200);
-            return $response->withJson($document);
-
-        } catch (GeneralException $e) {
-            return $this->catchErrorHandler( $response,$e);
-        }
-    }
 
 
 }

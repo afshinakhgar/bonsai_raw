@@ -9,7 +9,6 @@
 namespace App\Serializer\Api\V1\User;
 
 
-use App\Serializer\Api\V1\Study\StudySerializer;
 use Kernel\JsonApi\JsonApiSerializer;
 use Tobscure\JsonApi\Relationship;
 
@@ -51,25 +50,5 @@ class UserSerializer extends JsonApiSerializer
 
 
 
-
-    public function study($data)
-    {
-//        dd($data->study->get());
-        $dataRel = [];
-        foreach($data->attendStudy as $row){
-            $dataRel[] = (object)[
-                'id'=> $row->id,
-                'title'=>$row->title,
-                'body'=>$row->body,
-            ];
-        }
-
-
-        $element = new \Tobscure\JsonApi\Collection( $dataRel, new StudySerializer($this->container));
-
-
-
-        return new Relationship($element);
-    }
 
 }

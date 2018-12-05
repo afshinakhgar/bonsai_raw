@@ -56,18 +56,5 @@ class User extends AbstractModel
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
 
-	public function attendStudy()
-	{
-		return $this->belongsToMany('App\Model\Study','attends')->withTimestamps();
-	}
-	/**
-	 * User Roles relation
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-	 */
 
-	public function attendExam()
-	{
-		return $this->belongsToMany('App\Model\Exam','user_exam_attends')->withTimestamps();
-	}
 }
