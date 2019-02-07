@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-group">
                     <label for="name">عنوان نقش </label>
-                    <input id="display_name" name="name" type="text" class="form-control" value="">
+                    <input id="display_name" name="display_name" type="text" class="form-control" value="">
                 </div>
 
                 <div class="form-group ">
