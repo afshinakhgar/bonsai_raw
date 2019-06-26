@@ -1,5 +1,5 @@
 <?php
-namespace App\Middleware;
+namespace App\MiddleWare;
 
 use App\Model\Role;
 use Kernel\Abstracts\AbstractMiddleWare;
@@ -26,6 +26,11 @@ class RoleMiddleWare extends AbstractMiddleWare
      */
     public function __invoke($request, $response, $next  )
     {
+        if(!isset($this->role)){
+            return $response->withRedirect('/');
+
+        }
+        $permsArrNames = [];
 
         $role = Auth::hasRole($this->role);
 

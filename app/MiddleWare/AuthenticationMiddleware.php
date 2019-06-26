@@ -1,5 +1,5 @@
 <?php
-namespace App\Middleware;
+namespace App\MiddleWare;
 
 use Kernel\Facades\Auth;
 
